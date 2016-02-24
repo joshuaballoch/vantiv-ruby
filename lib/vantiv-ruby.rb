@@ -1,0 +1,2 @@
+module Vantiv
+end

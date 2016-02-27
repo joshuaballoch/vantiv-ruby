@@ -6,7 +6,10 @@ Gem::Specification.new do |s|
   s.description = "A simple hello world gem"
   s.authors     = ["Josh Balloch"]
   s.email       = 'joshuaballoch@gmail.com'
-  s.files       = ["lib/vantiv-ruby.rb"]
+  s.files       = `git ls-files`.split("\n")
   s.homepage    = 'https://wwww.plated.com/edit-this-url'
   s.license     = 'edit this too'
+
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'pry'
 end

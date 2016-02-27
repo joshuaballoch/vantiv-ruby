@@ -1,0 +1,26 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "101.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+    "Card": {
+      "Type": "AX",
+      "CardNumber": "375001010000003",
+      "ExpirationMonth": "09",
+      "ExpirationYear": "16",
+      "CVV": "0421"
+    },
+    "Address": {
+      "BillingName": "James Miller",
+      "BillingAddress1": "9 Main St.",
+      "BillingCity": "Boston",
+      "BillingState": "MA",
+      "BillingZipcode": "02134",
+      "BillingCountry": "US"
+    }
+  }
+}

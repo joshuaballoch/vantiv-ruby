@@ -1,0 +1,26 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "101.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+    "Card": {
+      "Type": "DI",
+      "CardNumber": "6011010100000002",
+      "ExpirationMonth": "08",
+      "ExpirationYear": "16",
+      "CVV": "184"
+    },
+    "Address": {
+      "BillingName": "Mark Johnson",
+      "BillingAddress1": "8 Main St.",
+      "BillingCity": "Manchester",
+      "BillingState": "NH",
+      "BillingZipcode": "03101",
+      "BillingCountry": "US"
+    }
+  }
+}

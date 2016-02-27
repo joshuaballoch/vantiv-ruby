@@ -1,0 +1,8 @@
+{
+  "endpoint": "credit",
+  "body": {
+    "Transaction": {
+      "TransactionID": "#{L_V_1A.litleOnlineResponse.captureResponse.TransactionID}"
+    }
+  }
+}

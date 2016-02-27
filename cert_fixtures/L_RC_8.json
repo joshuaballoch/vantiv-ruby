@@ -1,0 +1,18 @@
+{
+  "endpoint": "return",
+  "body": {
+    "Transaction": {
+      "TransactionAmount": "101.00",
+      "ReferenceNumber": "12345",
+      "OrderSource": "ecommerce",
+      "CustomerID": "123"
+    },
+    "Card": {
+      "CardNumber": "4457010000000009",
+      "CVV": "349",
+      "ExpirationMonth": "01",
+      "ExpirationYear": "16",
+      "Type": "VI"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "endpoint": "sale",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "101.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+    "Card": {
+      "Type": "MC",
+      "CardNumber": "5112010100000002",
+      "ExpirationMonth": "07",
+      "ExpirationYear": "16",
+      "CVV": "251"
+    },
+    "Address": {
+      "BillingName": "Jane Murray",
+      "BillingAddress1": "7 Main St.",
+      "BillingCity": "Amesbury",
+      "BillingState": "MA",
+      "BillingZipcode": "01913",
+      "BillingCountry": "US"
+    }
+  }
+}

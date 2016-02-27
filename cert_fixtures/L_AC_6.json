@@ -1,0 +1,27 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "101.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+
+    "Card": {
+      "Type": "VI",
+      "CardNumber": "4457010100000008",
+      "ExpirationMonth": "06",
+      "ExpirationYear": "16",
+      "CVV": "992"
+    },
+    "Address": {
+      "BillingName": "Joe Green",
+      "BillingAddress1": "6 Main St.",
+      "BillingCity": "Derry",
+      "BillingState": "NH",
+      "BillingZipcode": "03038",
+      "BillingCountry": "US"
+    }
+  }
+}

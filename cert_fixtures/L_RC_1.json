@@ -1,0 +1,27 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "101.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345",
+      "PartialApprovedFlag": "false"
+    },
+    "Card": {
+      "Type": "VI",
+      "CardNumber": "4457010000000009",
+      "ExpirationMonth": "01",
+      "ExpirationYear": "16",
+      "CVV": "349"
+    },
+    "Address": {
+      "BillingName": "John & Mary Smith",
+      "BillingAddress1": "1 Main St.",
+      "BillingCity": "Burlington",
+      "BillingState": "MA",
+      "BillingZipcode": "01803-3747",
+      "BillingCountry": "US"
+    }
+  }
+}

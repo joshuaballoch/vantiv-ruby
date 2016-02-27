@@ -10,6 +10,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://wwww.plated.com/edit-this-url'
   s.license     = 'edit this too'
 
+  s.executables << 'vantiv-certify-app'
+
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'pry'
 end

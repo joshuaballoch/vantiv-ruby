@@ -1,0 +1,17 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "205.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+    "Card": {
+      "Type": "AX",
+      "CardNumber": "375000026600004",
+      "ExpirationMonth": "05",
+      "ExpirationYear": "16"
+    }
+  }
+}

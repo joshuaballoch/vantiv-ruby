@@ -1,0 +1,29 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "300.30",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+    "Card": {
+      "Type": "DI",
+      "CardNumber": "6011010000000003",
+      "ExpirationMonth": "03",
+      "ExpirationYear": "16",
+      "CVV": "758"
+    },
+    "CardholderAuthentication": {
+      "AuthenticationValue": "BwABBJQ1AgAAAAAgJDUCAAAAAAA="
+    },
+    "Address": {
+      "BillingName": "Eileen Jones",
+      "BillingAddress1": "3 Main St.",
+      "BillingCity": "Bloomfield",
+      "BillingState": "CT",
+      "BillingZipcode": "06002",
+      "BillingCountry": "US"
+    }
+  }
+}

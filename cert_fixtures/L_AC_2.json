@@ -1,0 +1,30 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "101.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+    "Card": {
+      "Type": "MC",
+      "CardNumber": "5112010000000003",
+      "ExpirationMonth": "02",
+      "ExpirationYear": "16",
+      "CVV": "261"
+    },
+    "CardholderAuthentication": {
+      "AuthenticationValue": "BwABBJQ1AgAAAAAgJDUCAAAAAAA="
+    },
+    "Address": {
+      "BillingName": "Mike J. Hammer",
+      "BillingAddress1": "2 Main St.",
+      "BillingAddress2": "Apt. 222",
+      "BillingCity": "Riverside",
+      "BillingState": "RI",
+      "BillingZipcode": "02915",
+      "BillingCountry": "US"
+    }
+  }
+}

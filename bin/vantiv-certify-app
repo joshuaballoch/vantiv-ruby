@@ -1,0 +1,90 @@
+#!/usr/bin/env ruby
+require 'vantiv-ruby'
+require 'pry'
+
+unless ENV['ACCEPTOR_ID'] && ENV['APP_ID'] && ENV['LICENSE_ID']
+  raise "License ID, Acceptor ID and Application ID required"
+end
+
+Vantiv.configure do |config|
+  config.license_id = ENV["LICENSE_ID"]
+  config.acceptor_id = ENV["ACCEPTOR_ID"]
+  config.application_id = ENV["APP_ID"]
+
+  config.default_report_group = '1'
+end
+
+fixtures = Dir.glob("#{Vantiv.root}/cert_fixtures/**/*")
+
+results_file = File.open("certs.txt", "w")
+
+class ResponseCache
+  def initialize
+    @responses = {}
+  end
+
+  def push(cert_name, response)
+    responses[cert_name] = response
+  end
+
+  def access_value(values_tree)
+    cert_name = values_tree.shift
+    response_body = responses[cert_name].body
+
+    get_value(response_body, values_tree)
+  end
+
+  private
+
+  attr_reader :responses
+
+  def get_value(source, keys)
+    keys.any? ? get_value(source[keys.shift], keys) : source
+  end
+end
+
+def sub_values(string, response_cache)
+  if matches = /.*\#\{(.*)\}.*/.match(string)
+    matches = matches.to_a
+    matches.shift
+    matches.each do |match|
+      string = string.gsub(
+        /\#\{#{match}\}/,
+        response_cache.access_value(match.split("."))
+      )
+    end
+    string
+  else
+    string
+  end
+end
+
+def dup_and_sub(hash, response_cache)
+  dup = {}
+  hash.each do |key, value|
+    if value.is_a?(Hash)
+      dup[key] = dup_and_sub(value, response_cache)
+    else
+      dup[key] = sub_values(value, response_cache)
+    end
+  end
+  dup
+end
+
+response_cache = ResponseCache.new
+
+fixtures.each do |file_name|
+  cert_name = /.*\/cert_fixtures\/(\w*).json/.match(file_name)[1]
+  contents = JSON.parse(File.read(file_name))
+  endpoint = contents["endpoint"]
+  body = dup_and_sub(contents["body"], response_cache)
+
+  response = Vantiv.send(endpoint, body)
+
+  response_cache.push(cert_name, response)
+
+  results_file << "#{cert_name},#{response.request_id}\n"
+end
+
+results_file.close
+%x(open certs.txt)

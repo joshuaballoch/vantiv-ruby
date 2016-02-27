@@ -1,0 +1,25 @@
+{
+  "endpoint": "auth",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "101.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345"
+    },
+    "Card": {
+      "Type": "AX",
+      "CardNumber": "375001000000005",
+      "ExpirationMonth": "04",
+      "ExpirationYear": "16"
+    },
+    "Address": {
+      "BillingName": "Bob Black",
+      "BillingAddress1": "4 Main St.",
+      "BillingCity": "Laurel",
+      "BillingState": "MD",
+      "BillingZipcode": "20708",
+      "BillingCountry": "US"
+    }
+  }
+}

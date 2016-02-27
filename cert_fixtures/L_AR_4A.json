@@ -1,0 +1,9 @@
+{
+  "endpoint": "capture",
+  "body": {
+    "Transaction": {
+      "TransactionID": "#{L_AR_4.litleOnlineResponse.authorizationResponse.TransactionID}",
+      "TransactionAmount": "50.50"
+    }
+  }
+}

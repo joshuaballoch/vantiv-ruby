@@ -20,7 +20,7 @@ module Vantiv
           # NOTE: this kind of sucks, but at the commit point, the DevHub
           #   Api sometimes gives 200OK when litle had a parse issue and returns
           #   'Error validating xml data...' instead of an actual error
-          @body["litleOnlineResponse"]["@message"].match("[E|e]rror")
+          @body["litleOnlineResponse"]["@message"].match(/error/i)
       end
     end
   end

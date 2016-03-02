@@ -3,10 +3,16 @@ require 'net/http'
 require 'vantiv/api'
 
 module Vantiv
-  def self.auth(body)
+  def self.auth(amount:, payment_account_id:, customer_id:)
+    body = Api::AuthRequestBody.new(
+      amount: amount,
+      payment_account_id: payment_account_id,
+      customer_id: customer_id
+    )
     Api::Request.new(
       endpoint: Api::Endpoints::AUTHORIZATION,
-      body: body
+      body: body.to_hash,
+      response_class: Api::AuthorizationResponse
     ).run
   end
 
@@ -61,7 +67,7 @@ module Vantiv
   end
 
   class << self
-    attr_accessor :license_id, :acceptor_id, :application_id, :default_report_group
+    attr_accessor :license_id, :acceptor_id, :application_id, :default_report_group, :order_source
   end
 
   def self.root

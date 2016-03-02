@@ -1,5 +1,5 @@
 {
-  "endpoint": "void",
+  "endpoint": "VOID",
   "body": {
     "Transaction": {
       "TransactionID": "#{L_V_4.litleOnlineResponse.saleResponse.TransactionID}"

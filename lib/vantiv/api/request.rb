@@ -3,9 +3,10 @@ module Vantiv
 
     attr_reader :body
 
-    def initialize(endpoint:, body:)
+    def initialize(endpoint:, body:, response_class: Api::Response)
       @endpoint = endpoint
       @body = build_request_body(body)
+      @response_class = response_class
     end
 
     def run
@@ -14,12 +15,12 @@ module Vantiv
 
       request = Net::HTTP::Post.new(uri.request_uri, header)
       request.body = body
-      endpoint.response_class.new(http.request(request))
+      response_class.new(http.request(request))
     end
 
     private
 
-    attr_reader :endpoint
+    attr_reader :endpoint, :response_class
 
     def header
       {
@@ -49,7 +50,7 @@ module Vantiv
     end
 
     def uri
-      @uri ||= URI.parse("https://apis.cert.vantiv.com/#{endpoint.url}")
+      @uri ||= URI.parse("https://apis.cert.vantiv.com/#{endpoint}")
     end
   end
 end

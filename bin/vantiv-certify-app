@@ -76,10 +76,14 @@ response_cache = ResponseCache.new
 fixtures.each do |file_name|
   cert_name = /.*\/cert_fixtures\/(\w*).json/.match(file_name)[1]
   contents = JSON.parse(File.read(file_name))
-  endpoint = contents["endpoint"]
+  endpoint = Vantiv::Api::Endpoints.const_get(contents["endpoint"])
   body = dup_and_sub(contents["body"], response_cache)
 
-  response = Vantiv.send(endpoint, body)
+  response = Vantiv::Api::Request.new(
+    endpoint: endpoint,
+    body: body,
+    response_class: Vantiv::Api::Response
+  ).run
 
   response_cache.push(cert_name, response)
 

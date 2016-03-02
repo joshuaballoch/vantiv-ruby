@@ -7,6 +7,7 @@ RSpec.configure do |config|
     config.license_id = ENV["LICENSE_ID"]
     config.acceptor_id = ENV["ACCEPTOR_ID"]
     config.application_id = ENV["APP_ID"]
+    config.order_source = "ecommerce"
 
     config.default_report_group = '1'
   end

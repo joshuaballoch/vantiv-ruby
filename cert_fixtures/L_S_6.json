@@ -1,5 +1,5 @@
 {
-  "endpoint": "sale",
+  "endpoint": "SALE",
   "body": {
     "Transaction": {
       "ReferenceNumber": "1",

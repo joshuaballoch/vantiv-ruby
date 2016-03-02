@@ -1,5 +1,5 @@
 {
-  "endpoint": "return",
+  "endpoint": "RETURN",
   "body": {
     "Transaction": {
       "ReferenceNumber": "1",

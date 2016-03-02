@@ -1,5 +1,5 @@
 {
-  "endpoint": "auth",
+  "endpoint": "AUTHORIZATION",
   "body": {
     "Transaction": {
       "ReferenceNumber": "1",

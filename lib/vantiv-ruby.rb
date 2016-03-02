@@ -4,14 +4,14 @@ require 'vantiv/api'
 
 module Vantiv
   def self.auth(amount:, payment_account_id:, customer_id:)
-    body = Api::AuthRequestBody.new(
+    body = Api::AuthRequestBody.generate(
       amount: amount,
       payment_account_id: payment_account_id,
       customer_id: customer_id
     )
     Api::Request.new(
       endpoint: Api::Endpoints::AUTHORIZATION,
-      body: body.to_hash,
+      body: body,
       response_class: Api::AuthorizationResponse
     ).run
   end

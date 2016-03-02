@@ -1,6 +1,14 @@
 module Vantiv
   module Api
     class AuthRequestBody
+      def self.generate(amount:, payment_account_id:, customer_id:)
+        new(
+          amount: amount,
+          payment_account_id: payment_account_id,
+          customer_id: customer_id
+        ).to_hash
+      end
+
       attr_reader :amount, :payment_account_id, :customer_id
 
       def initialize(amount:, payment_account_id:, customer_id:)

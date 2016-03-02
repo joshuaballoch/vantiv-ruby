@@ -101,4 +101,23 @@ describe "#auth" do
       expect(response.message).not_to eq ""
     end
   end
+
+  context "when API level failure occurs" do
+    let(:payment_account_id) { Vantiv::TestAccount.valid_account.payment_account_id }
+
+    before do
+      @license_id = Vantiv.license_id
+      Vantiv.license_id = "invalid"
+    end
+
+    after do
+      Vantiv.license_id = @license_id
+    end
+
+    it "responds that the authorization failed" do
+      response = run_auth
+      expect(response.failure?).to eq true
+      expect(response.api_level_failure?).to eq true
+    end
+  end
 end

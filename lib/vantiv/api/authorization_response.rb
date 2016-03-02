@@ -3,12 +3,12 @@ module Vantiv
   module Api
     class AuthorizationResponse < Api::Response
       ResponseCodes = {
-        # TODO: review API docs to double check this
+        approved: '000',
         insufficient_funds: '110',
         invalid_account_number: '301',
-        success: '000',
         token_not_found: '822'
       }
+
       def success?
         !failure?
       end
@@ -44,8 +44,7 @@ module Vantiv
       end
 
       def authorization_successful?
-        # TODO: review API docs and update this
-        auth_response_code == ResponseCodes[:success]
+        auth_response_code == ResponseCodes[:approved]
       end
 
       def authorization_unsuccessful?

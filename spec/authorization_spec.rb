@@ -1,13 +1,14 @@
 require 'spec_helper'
 
-describe "#auth" do
+describe "auth" do
   let(:customer_external_id) { "1234" }
 
   subject(:run_auth) do
     Vantiv.auth(
       amount: 10000,
       payment_account_id: payment_account_id,
-      customer_id: customer_external_id
+      customer_id: customer_external_id,
+      order_id: "SomeOrder123"
     )
   end
 

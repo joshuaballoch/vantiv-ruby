@@ -24,8 +24,6 @@ describe "#auth" do
       expect(response.transaction_id).not_to eq nil
       expect(response.transaction_id).not_to eq ""
     end
-
-    pending "should we test auth code?"
   end
 
   context "on an account with insufficient funds" do

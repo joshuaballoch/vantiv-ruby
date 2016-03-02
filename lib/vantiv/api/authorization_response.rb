@@ -1,4 +1,3 @@
-require 'pry'
 module Vantiv
   module Api
     class AuthorizationResponse < Api::Response

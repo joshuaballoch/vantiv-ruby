@@ -13,5 +13,6 @@ Gem::Specification.new do |s|
   s.executables << 'vantiv-certify-app'
 
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'dotenv'
   s.add_development_dependency 'pry'
 end

@@ -8,6 +8,7 @@ GEM
   specs:
     coderay (1.1.1)
     diff-lcs (1.2.5)
+    dotenv (2.1.0)
     method_source (0.8.2)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -32,6 +33,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   pry
   rspec
   vantiv-ruby!

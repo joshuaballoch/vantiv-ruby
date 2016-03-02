@@ -12,6 +12,12 @@ module Vantiv
         )
       end
 
+      def self.for_capture(transaction_id:, amount: nil)
+        RequestBodyGenerator.run(
+          tied_transaction_object(transaction_id: transaction_id, amount: amount)
+        )
+      end
+
       def self.for_tokenization(paypage_registration_id:)
         RequestBodyGenerator.run(
           card_object_for_tokenization(paypage_registration_id)
@@ -24,6 +30,18 @@ module Vantiv
             "PaypageRegistrationID" => paypage_registration_id
           }
         }
+      end
+
+      def self.tied_transaction_object(transaction_id:, amount: nil)
+        res = {
+          "Transaction" => {
+            "TransactionID" => transaction_id
+          }
+        }
+        if amount
+          res["Transaction"]["TransactionAmount"] = '%.2f' % (amount / 100.0)
+        end
+        res
       end
 
       def self.transaction_object(amount:, customer_id:, order_id:)

@@ -1,7 +1,11 @@
+
+
 RSpec.configure do |config|
   require 'vantiv-ruby'
   require 'dotenv'
   Dotenv.load
+
+  Dir["#{Vantiv.root}/spec/support/**/*.rb"].each {|f| require f}
 
   Vantiv.configure do |config|
     config.license_id = ENV["LICENSE_ID"]

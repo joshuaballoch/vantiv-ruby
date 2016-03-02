@@ -12,8 +12,7 @@ describe "#auth" do
   end
 
   context "on a valid account" do
-    # TODO: how do we get this going forward?
-    let(:payment_account_id) { "1111000194360009" }
+    let(:payment_account_id) { Vantiv::TestAccount.valid_account.payment_account_id }
 
     it "returns success response" do
       response = run_auth
@@ -30,8 +29,7 @@ describe "#auth" do
   end
 
   context "on an account with insufficient funds" do
-    # TODO: how do we get this going forward?
-    let(:payment_account_id) { "1111000189340008" }
+    let(:payment_account_id) { Vantiv::TestAccount.insufficient_funds.payment_account_id }
 
     it "returns a failure response" do
       response = run_auth
@@ -57,8 +55,7 @@ describe "#auth" do
   end
 
   context "on an account with an invalid account number" do
-    # TODO: how do we get this going forward?
-    let(:payment_account_id) { "1112000189130002" }
+    let(:payment_account_id) { Vantiv::TestAccount.invalid_account_number.payment_account_id }
 
     it "returns a failure response" do
       response = run_auth
@@ -84,7 +81,7 @@ describe "#auth" do
   end
 
   context "on an account with misc errors, like pick up card" do
-    let(:payment_account_id) { "111300188100003" }
+    let(:payment_account_id) { Vantiv::TestAccount.pick_up_card.payment_account_id }
 
     it "returns a failure response" do
       response = run_auth

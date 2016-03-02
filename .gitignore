@@ -1,0 +1,4 @@
+.ruby-version
+.env
+tmp/
+certs.txt

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Vantiv::Api::AuthRequestBody do
+describe Vantiv::Api::SaleRequestBody do
   subject(:request_body) do
-    Vantiv::Api::AuthRequestBody.generate(
-      amount: 4224,
+    Vantiv::Api::SaleRequestBody.generate(
+      amount: 422984,
       customer_id: "extid123",
       payment_account_id: "paymentacct123",
       order_id: "SomeOrder123"
@@ -11,7 +11,7 @@ describe Vantiv::Api::AuthRequestBody do
   end
 
   it "formats the amount (in cents) as dollar 2 decimal format" do
-    expect(request_body["Transaction"]["TransactionAmount"]).to eq "42.24"
+    expect(request_body["Transaction"]["TransactionAmount"]).to eq "4229.84"
   end
 
   it "includes a customer ID (required by Vantiv)" do

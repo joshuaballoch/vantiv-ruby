@@ -20,6 +20,32 @@ module Vantiv
           #   'Error validating xml data...' instead of an actual error
           @body["litleOnlineResponse"]["@message"].match(/error/i)
       end
+
+      def message
+        litle_transaction_response["message"]
+      end
+
+      def response_code
+        litle_transaction_response["response"]
+      end
+
+      def transaction_id
+        litle_transaction_response["TransactionID"]
+      end
+
+      private
+
+      def litle_response
+        body["litleOnlineResponse"]
+      end
+
+      def litle_transaction_response
+        litle_response[transaction_response_name]
+      end
+
+      def transaction_response_name
+        raise "not implemented!"
+      end
     end
   end
 end

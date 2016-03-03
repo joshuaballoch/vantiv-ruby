@@ -1,6 +1,6 @@
 module Vantiv
   module Api
-    class AuthorizationResponse < Api::Response
+    class SaleResponse < Api::Response
       ResponseCodes = {
         approved: '000',
         insufficient_funds: '110',
@@ -31,9 +31,8 @@ module Vantiv
       end
 
       def transaction_response_name
-        "authorizationResponse"
+        "saleResponse"
       end
-
     end
   end
 end

@@ -31,11 +31,17 @@ module Vantiv
     ).run
   end
 
-  # NOTE: ActiveMerchant's #auth_capture... what naming should we use here?
-  def self.sale(body)
+  def self.auth_capture(amount:, payment_account_id:, customer_id:, order_id:)
+    body = Api::SaleRequestBody.generate(
+      amount: amount,
+      customer_id: customer_id,
+      payment_account_id: payment_account_id,
+      order_id: order_id
+    )
     Api::Request.new(
       endpoint: Api::Endpoints::SALE,
-      body: body
+      body: body,
+      response_class: Api::SaleResponse
     ).run
   end
 

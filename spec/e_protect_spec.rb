@@ -40,6 +40,15 @@ describe "promoting a temporary token to a permanent token", type: :feature do
     end
   end
 
+  context "with a blank temporary token" do
+
+    it "raises an error" do
+      expect{
+        Vantiv.tokenize(temporary_token: "")
+      }.to raise_error ArgumentError, /blank temporary token/i
+    end
+  end
+
   context "with an invalid account number
            (where number is technically valid, and the actual account is invalid)" do
 

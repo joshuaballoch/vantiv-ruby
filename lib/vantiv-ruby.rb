@@ -4,6 +4,10 @@ require 'vantiv/api'
 
 module Vantiv
   def self.tokenize(temporary_token:)
+    if temporary_token == "" or temporary_token == nil
+      raise ArgumentError.new("Blank temporary token (PaypageRegistrationID): \n
+                               Check that paypage error handling is implemented correctly.")
+    end
     body = Api::TokenizationRequestBody.generate(
       paypage_registration_id: temporary_token
     )

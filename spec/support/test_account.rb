@@ -15,7 +15,8 @@ module Vantiv
       fetch_account(
         card_number: "4457010000000009",
         expiry_month: "01",
-        expiry_year: "16"
+        expiry_year: "16",
+        cvv: "349"
       )
     end
 
@@ -23,7 +24,8 @@ module Vantiv
       fetch_account(
         card_number: "4457010100000008",
         expiry_month: "06",
-        expiry_year: "16"
+        expiry_year: "16",
+        cvv: "992"
       )
     end
 
@@ -31,7 +33,8 @@ module Vantiv
       fetch_account(
         card_number: "5112010100000002",
         expiry_month: "07",
-        expiry_year: "16"
+        expiry_year: "16",
+        cvv: "251"
       )
     end
 
@@ -39,22 +42,24 @@ module Vantiv
       fetch_account(
         card_number: "375001010000003",
         expiry_month: "09",
-        expiry_year: "16"
+        expiry_year: "16",
+        cvv: "0421"
       )
     end
 
-    def self.fetch_account(card_number:, expiry_month:, expiry_year:)
-      acct = new(card_number, expiry_month, expiry_year)
+    def self.fetch_account(card_number:, expiry_month:, expiry_year:, cvv:)
+      acct = new(card_number, expiry_month, expiry_year, cvv)
       acct.read_or_get_data
       acct
     end
 
-    attr_reader :card_number, :expiry_month, :expiry_year, :payment_account_id
+    attr_reader :card_number, :expiry_month, :expiry_year, :payment_account_id, :cvv
 
-    def initialize(card_number, expiry_month, expiry_year)
+    def initialize(card_number, expiry_month, expiry_year, cvv)
       @card_number = card_number
       @expiry_month = expiry_month
       @expiry_year = expiry_year
+      @cvv = cvv
     end
 
     def read_or_get_data

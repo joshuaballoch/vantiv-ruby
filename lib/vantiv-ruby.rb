@@ -3,6 +3,17 @@ require 'net/http'
 require 'vantiv/api'
 
 module Vantiv
+  def self.tokenize(temporary_token:)
+    body = Api::TokenizationRequestBody.generate(
+      paypage_registration_id: temporary_token
+    )
+    Api::Request.new(
+      endpoint: Api::Endpoints::TOKENIZATION,
+      body: body,
+      response_class: Api::TokenizationResponse
+    ).run
+  end
+
   def self.auth(amount:, payment_account_id:, customer_id:, order_id:)
     body = Api::AuthRequestBody.generate(
       amount: amount,

@@ -1,20 +1,28 @@
-Gem::Specification.new do |s|
-  s.name        = 'vantiv-ruby'
-  s.version     = '0.0.0'
-  s.date        = '2016-02-24'
-  s.summary     = "Ruby client for Vantiv's DevHub API"
-  s.description = "A simple hello world gem"
-  s.authors     = ["Josh Balloch"]
-  s.email       = 'joshuaballoch@gmail.com'
-  s.files       = `git ls-files`.split("\n")
-  s.homepage    = 'https://wwww.plated.com/edit-this-url'
-  s.license     = 'edit this too'
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'vantiv/version'
 
-  s.executables << 'vantiv-certify-app'
+Gem::Specification.new do |spec|
+  spec.name          = "vantiv-ruby"
+  spec.version       = Vantiv::VERSION
+  spec.authors       = ["Joshua Balloch"]
+  spec.email         = ["joshuaballoch@gmail.com"]
 
-  s.add_development_dependency 'dotenv'
-  s.add_development_dependency 'capybara'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'selenium-webdriver'
+  spec.summary       = %q{A simple ruby client to use Vantiv's DevHub API}
+  spec.homepage      = "https://github.com/plated/vantiv-ruby"
+  spec.license       = "MIT"
+
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
+
+  spec.add_development_dependency "bundler", "~> 1.10"
+  spec.add_development_dependency 'capybara'
+  spec.add_development_dependency 'dotenv'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency 'selenium-webdriver'
 end

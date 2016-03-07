@@ -1,4 +1,12 @@
-.ruby-version
-.env
-tmp/
-certs.txt
+/.ruby-version
+/.env
+/certs.txt
+/.bundle/
+/.yardoc
+/Gemfile.lock
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/

@@ -1,6 +1,7 @@
 require 'json'
 require 'net/http'
 require 'vantiv/api'
+require 'vantiv/paypage'
 
 module Vantiv
   def self.auth(amount:, payment_account_id:, customer_id:, order_id:)

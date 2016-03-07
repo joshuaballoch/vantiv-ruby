@@ -1,6 +1,7 @@
 require 'json'
 require 'net/http'
 require 'vantiv/api'
+require 'vantiv/paypage'
 
 module Vantiv
   def self.tokenize(temporary_token:)

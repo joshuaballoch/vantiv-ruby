@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 require 'vantiv-ruby'
-require 'pry'
 
 unless ENV['ACCEPTOR_ID'] && ENV['APP_ID'] && ENV['LICENSE_ID']
-  raise "License ID, Acceptor ID and Application ID required"
+  raise "Vantiv License ID, Acceptor ID and Application ID required"
 end
 
 Vantiv.configure do |config|

@@ -29,4 +29,24 @@ describe Vantiv::Api::AuthRequestBody do
   it "includes the PaymentAccountID" do
     expect(request_body["PaymentAccount"]["PaymentAccountID"]).to eq "paymentacct123"
   end
+
+  context "if an order source has not been configured" do
+
+    before :each do
+      @cached_order_source = Vantiv.order_source
+      Vantiv.configure do |config|
+        config.order_source = nil
+      end
+    end
+
+    after :each do
+      Vantiv.configure do |config|
+        config.order_source = @cached_order_source
+      end
+    end
+
+    it "raises an error if an order source has not been configured" do
+      expect{request_body}.to raise_error(/missing.*order_source/i)
+    end
+  end
 end

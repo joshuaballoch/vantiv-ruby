@@ -10,6 +10,7 @@ module Vantiv
     end
 
     def run
+      validate_env_variables_exist
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
@@ -39,7 +40,7 @@ module Vantiv
           "AcceptorID" => Vantiv.acceptor_id
         },
         "Reports" => {
-          # NOTE: this is required, so a default is left here.
+          # NOTE: this is required by vantiv, so a default is left here.
           #       If a user wants to use this Vantiv feature, it can be made dynamic.
           "ReportGroup" => Vantiv.default_report_group
         },
@@ -51,6 +52,17 @@ module Vantiv
 
     def uri
       @uri ||= URI.parse("https://apis.cert.vantiv.com/#{endpoint}")
+    end
+
+    def validate_env_variables_exist
+      required_vars = %w(acceptor_id application_id license_id default_report_group)
+
+      missing_vars = required_vars.select do |v|
+        value = Vantiv.send(:"#{v}")
+        value == nil || value == ""
+      end
+
+      raise "Missing required Vantiv Configs: #{missing_vars.join(', ')}" if missing_vars.any?
     end
   end
 end

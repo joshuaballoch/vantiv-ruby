@@ -36,11 +36,11 @@ module Vantiv
       private
 
       def litle_response
-        body["litleOnlineResponse"]
+        api_level_failure? ? {} : body["litleOnlineResponse"]
       end
 
       def litle_transaction_response
-        litle_response[transaction_response_name]
+        api_level_failure? ? {} : litle_response[transaction_response_name]
       end
 
       def transaction_response_name

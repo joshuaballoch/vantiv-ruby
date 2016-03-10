@@ -1,5 +1,7 @@
 require 'vantiv-ruby'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
+
 require 'dotenv'
 Dotenv.load
 Dir["#{Vantiv.root}/spec/support/**/*.rb"].each {|f| require f}
@@ -14,10 +16,22 @@ Vantiv.configure do |config|
   config.default_report_group = '1'
 end
 
+Capybara.register_driver :poltergeist do |app|
+   options = {
+      :js_errors => true ,
+      :timeout => 120,
+      :debug => false,
+      :phantomjs_options => ['--load-images=no', '--disk-cache=false'],
+      :inspector => true,
+   }
+   Capybara::Poltergeist::Driver.new(app, options)
+end
+
+
 Capybara.configure do |config|
   config.default_max_wait_time = 20
   config.run_server = false
-  config.default_driver = :selenium
+  config.default_driver = :poltergeist
 end
 
 RSpec.configure do |config|

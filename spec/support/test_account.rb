@@ -87,13 +87,13 @@ module Vantiv
 
     def tokenization_request_body
       {
-        "Transaction": {
-          "CustomerID": "123"
+        "Transaction" => {
+          "CustomerID" => "123"
         },
-        "Card": {
-          "AccountNumber": card_number,
-          "ExpirationMonth": expiry_month,
-          "ExpirationYear": expiry_year
+        "Card" => {
+          "AccountNumber" => card_number,
+          "ExpirationMonth" => expiry_month,
+          "ExpirationYear" => expiry_year
         }
       }
     end

@@ -1,4 +1,4 @@
-require 'vantiv-ruby'
+require 'vantiv'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 

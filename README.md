@@ -1,4 +1,5 @@
 # Vantiv::Ruby
+[![Build Status](https://travis-ci.org/plated/vantiv-ruby.svg)](https://travis-ci.org/plated/vantiv-ruby.svg)
 
 ## Installation
 

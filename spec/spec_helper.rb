@@ -15,6 +15,7 @@ Vantiv.configure do |config|
 end
 
 Capybara.configure do |config|
+  config.default_max_wait_time = 20
   config.run_server = false
   config.default_driver = :selenium
 end

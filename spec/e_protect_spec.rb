@@ -5,6 +5,15 @@ describe "promoting a temporary token to a permanent token", type: :feature do
     Vantiv.tokenize(temporary_token: paypage_registration_id)
   end
 
+  before :all do
+    @test_paypage_server = Vantiv::TestPaypageServer.new
+    @test_paypage_server.start
+  end
+
+  after :all do
+    @test_paypage_server.stop
+  end
+
   context "with a valid temporary token" do
     before :all do
       @card_to_tokenize = Vantiv::TestAccount.valid_account
@@ -115,18 +124,19 @@ describe "promoting a temporary token to a permanent token", type: :feature do
   end
 
   def get_paypage_registration_id
-    visit("https://apideveloper.vantiv.com/docs/eprotect-check-out-page-cvv")
-    expect(page).to have_content("eProtect IFrame with CVV")
+    visit(@test_paypage_server.root_path)
+    expect(page).to have_content("Vantiv Test Paypage")
 
-    fill_in("ccNum", with: @card_to_tokenize.card_number)
-    fill_in("cvv2Num", with: @card_to_tokenize.cvv)
+    within_frame "vantiv-payframe" do
+      fill_in("accountNumber", with: @card_to_tokenize.card_number)
+      fill_in("cvv", with: @card_to_tokenize.cvv)
+    end
 
-    click_button "Check out"
+    click_button "Submit"
 
-    tempTokenInput = find("#paypageRegistrationId")
-    expect(tempTokenInput).to have_content
-
-    temp_token = tempTokenInput.value
+    expect(page).to have_content "Request Complete"
+    temp_token = find("#temp-token").native.text
+    expect(temp_token).not_to eq nil
     expect(temp_token).not_to eq ""
     temp_token
   end

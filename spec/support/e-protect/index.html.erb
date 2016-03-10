@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js" type="text/javascript"></script>
+    <script src="https://request-prelive.np-securepaypage-litle.com/LitlePayPage/js/payframe-client.min.js" type="text/javascript"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var payframeClientCallback = function(response) {
+          if (response.response !== '870') {
+            document.getElementById('request-status').innerHTML = 'Request Failed';
+            document.getElementById('payment-errors').innerHTML = response.message;
+          } else {
+            document.getElementById('temp-token').innerHTML = response.paypageRegistrationId;
+            document.getElementById('request-status').innerHTML = 'Request Complete';
+          }
+        }
+
+        var client = new LitlePayframeClient({
+          "paypageId": "<%= Vantiv.paypage_id %>",
+          "style":"sample2",
+          "height":"250",
+          "reportGroup":"IFrame Sample",
+          "timeout":"60000",
+          "div": "payframe",
+          "callback": payframeClientCallback,
+          "showCvv": true,
+          "months": {
+            "1":"January",
+            "2":"February",
+            "3":"March",
+            "4":"April",
+            "5":"May",
+            "6":"June",
+            "7":"July",
+            "8":"August",
+            "9":"September",
+            "10":"October",
+            "11":"November",
+            "12":"December"
+          },
+          "numYears": 8,
+          "tooltipText": "A CVV is the 3 digit code on the back of your Visa, MasterCard and Discover or a 4 digit code on the front of your American Express",
+          "tabIndex": {
+            "cvv":4,
+            "accountNumber":1,
+            "expMonth":2,
+            "expYear":3
+          },
+          "placeholderText": {
+            "cvv":"CVV",
+            "accountNumber":"Account Number"
+          }
+        });
+
+        window.onFormSubmit = function(){
+          client.getPaypageRegistrationId({
+            "id": "12345",
+            "orderId": "somethingunintelligble"
+          });
+
+          return false;
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Vantiv Test Paypage</h1>
+    <form id="payment-form" onsubmit="return onFormSubmit()">
+      <div id="payframe"></div>
+      <div id="payment-errors"></div>
+      <div id="request-status"></div>
+      <div id="temp-token"></div>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
+

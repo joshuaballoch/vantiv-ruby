@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "promoting a temporary token to a permanent token", type: :feature do
+describe "promoting a temporary token to a permanent token", type: :feature, js: true do
   let(:response) do
     Vantiv.tokenize(temporary_token: paypage_registration_id)
   end
@@ -135,7 +135,7 @@ describe "promoting a temporary token to a permanent token", type: :feature do
     click_button "Submit"
 
     expect(page).to have_content "Request Complete"
-    temp_token = find("#temp-token").native.text
+    temp_token = find("#temp-token").text
     expect(temp_token).not_to eq nil
     expect(temp_token).not_to eq ""
     temp_token

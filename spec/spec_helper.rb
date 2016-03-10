@@ -1,5 +1,7 @@
 require 'vantiv-ruby'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
+
 require 'dotenv'
 Dotenv.load
 Dir["#{Vantiv.root}/spec/support/**/*.rb"].each {|f| require f}
@@ -12,12 +14,6 @@ Vantiv.configure do |config|
   config.paypage_id = ENV["PAYPAGE_ID"]
 
   config.default_report_group = '1'
-end
-
-Capybara.configure do |config|
-  config.default_max_wait_time = 20
-  config.run_server = false
-  config.default_driver = :selenium
 end
 
 RSpec.configure do |config|

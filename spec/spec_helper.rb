@@ -9,6 +9,7 @@ Vantiv.configure do |config|
   config.acceptor_id = ENV["ACCEPTOR_ID"]
   config.application_id = ENV["APP_ID"]
   config.order_source = "ecommerce"
+  config.paypage_id = ENV["PAYPAGE_ID"]
 
   config.default_report_group = '1'
 end

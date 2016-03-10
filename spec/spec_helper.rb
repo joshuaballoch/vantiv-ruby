@@ -9,11 +9,13 @@ Vantiv.configure do |config|
   config.acceptor_id = ENV["ACCEPTOR_ID"]
   config.application_id = ENV["APP_ID"]
   config.order_source = "ecommerce"
+  config.paypage_id = ENV["PAYPAGE_ID"]
 
   config.default_report_group = '1'
 end
 
 Capybara.configure do |config|
+  config.default_max_wait_time = 20
   config.run_server = false
   config.default_driver = :selenium
 end

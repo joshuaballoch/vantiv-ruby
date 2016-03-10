@@ -104,7 +104,7 @@ module Vantiv
         body: tokenization_request_body,
         response_class: Api::Response
       ).run
-      raise "Tokenization Request not 200 OK" unless response.raw_response.code_type == Net::HTTPOK
+      raise "Tokenization Request not 200 OK, it's #{response.raw_response.code_type}\n Response: #{response.body}" unless response.raw_response.code_type == Net::HTTPOK
       response.body["litleOnlineResponse"]["registerTokenResponse"]["PaymentAccountID"]
     end
   end

@@ -1,13 +1,16 @@
 module Vantiv
   module Api
     class AuthRequestBody
+
       def self.generate(amount:, payment_account_id:, customer_id:, order_id:)
-        new(
-          amount: amount,
-          payment_account_id: payment_account_id,
-          customer_id: customer_id,
-          order_id: order_id
-        ).to_hash
+        RequestBody.generate(
+          new(
+            amount: amount,
+            payment_account_id: payment_account_id,
+            customer_id: customer_id,
+            order_id: order_id
+          ).body
+        )
       end
 
       attr_reader :amount, :payment_account_id, :customer_id, :order_id
@@ -19,7 +22,7 @@ module Vantiv
         @order_id = order_id
       end
 
-      def to_hash
+      def body
         {
           "Transaction" => {
             "ReferenceNumber" => order_id,

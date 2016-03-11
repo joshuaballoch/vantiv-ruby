@@ -4,6 +4,7 @@ require 'vantiv/api/sale_response'
 require 'vantiv/api/tokenization_response'
 
 require 'vantiv/api/request'
+require 'vantiv/api/request_body_generator'
 require 'vantiv/api/auth_request_body'
 require 'vantiv/api/sale_request_body'
 require 'vantiv/api/tokenization_request_body'

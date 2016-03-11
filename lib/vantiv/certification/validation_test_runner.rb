@@ -27,7 +27,7 @@ module Vantiv
           run_request(
             cert_name: cert_name,
             endpoint: Vantiv::Api::Endpoints.const_get(contents["endpoint"]),
-            body: request_body_compiler.compile(contents["body"])
+            body: create_body(contents["body"])
           )
         end
       end
@@ -35,6 +35,11 @@ module Vantiv
       private
 
       attr_reader :filter_by, :certs_file
+
+      def create_body(base_body)
+        compiled_base = request_body_compiler.compile(contents["body"])
+        Vantiv::Api::RequestBody.generate(compiled_base)
+      end
 
       def fixtures
         @fixtures ||= Dir.glob("#{Vantiv.root}/cert_fixtures/**/*")

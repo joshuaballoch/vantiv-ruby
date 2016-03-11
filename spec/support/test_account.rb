@@ -11,6 +11,7 @@
 #
 module Vantiv
   class TestAccount
+
     def self.valid_account
       fetch_account(
         card_number: "4457010000000009",
@@ -86,7 +87,7 @@ module Vantiv
     end
 
     def tokenization_request_body
-      {
+      Api::RequestBody.new({
         "Transaction" => {
           "CustomerID" => "123"
         },
@@ -95,7 +96,7 @@ module Vantiv
           "ExpirationMonth" => expiry_month,
           "ExpirationYear" => expiry_year
         }
-      }
+      }).generate
     end
 
     def request_payment_account_id

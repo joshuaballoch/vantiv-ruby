@@ -2,7 +2,9 @@ module Vantiv
   module Api
     class TokenizationRequestBody
       def self.generate(paypage_registration_id:)
-        new(paypage_registration_id: paypage_registration_id).to_hash
+        RequestBody.generate(
+          new(paypage_registration_id: paypage_registration_id).body
+        )
       end
 
       attr_reader :paypage_registration_id
@@ -11,7 +13,7 @@ module Vantiv
         @paypage_registration_id = paypage_registration_id
       end
 
-      def to_hash
+      def body
         {
           "Card" => {
             "PaypageRegistrationID" => paypage_registration_id

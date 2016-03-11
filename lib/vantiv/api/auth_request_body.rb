@@ -27,7 +27,7 @@ module Vantiv
           "Transaction" => {
             "ReferenceNumber" => order_id,
             "TransactionAmount" => '%.2f' % (amount / 100.0),
-            "OrderSource" => get_order_source,
+            "OrderSource" => Vantiv.order_source,
             "CustomerID" => customer_id,
             "PartialApprovedFlag" => false
           },
@@ -35,11 +35,6 @@ module Vantiv
             "PaymentAccountID" => payment_account_id
           }
         }
-      end
-
-      def get_order_source
-        raise "Missing Vantiv Config: order_source" unless Vantiv.order_source
-        Vantiv.order_source
       end
     end
   end

@@ -66,7 +66,7 @@ module Vantiv
     def read_or_get_data
       File.open("#{test_accounts_directory}/#{card_number}", "a+") do |file|
         @payment_account_id = file.read
-        unless payment_account_id != ""
+        if payment_account_id == "" || payment_account_id == nil
           @payment_account_id = request_payment_account_id
           file << payment_account_id
         end
@@ -87,7 +87,7 @@ module Vantiv
     end
 
     def tokenization_request_body
-      Api::RequestBody.new({
+      Api::RequestBodyGenerator.run({
         "Transaction" => {
           "CustomerID" => "123"
         },
@@ -96,7 +96,7 @@ module Vantiv
           "ExpirationMonth" => expiry_month,
           "ExpirationYear" => expiry_year
         }
-      }).generate
+      })
     end
 
     def request_payment_account_id

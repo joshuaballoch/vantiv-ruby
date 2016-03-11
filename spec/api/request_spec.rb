@@ -12,7 +12,7 @@ describe Vantiv::Api::Request do
   subject(:run_api_request) do
     Vantiv::Api::Request.new(
       endpoint: Vantiv::Api::Endpoints::TOKENIZATION,
-      body: Vantiv::Api::TokenizationRequestBody.generate(
+      body: Vantiv::Api::RequestBody.for_tokenization(
         paypage_registration_id: "1234"
       ),
       response_class: general_response_class

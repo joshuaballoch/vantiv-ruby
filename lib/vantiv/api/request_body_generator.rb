@@ -1,22 +1,25 @@
 module Vantiv
   module Api
-    class RequestBody
-
-      def self.generate(inner_body)
-        new(inner_body).generate
+    class RequestBodyGenerator
+      def self.run(*args)
+        new(*args).generate
       end
 
-      def initialize(inner_body)
-        @inner_body = inner_body
+      def initialize(*args)
+        @body_parts = args
       end
 
       def generate
-        request_body_base.merge(inner_body)
+        body = request_body_base
+        body_parts.each do |body_part|
+          body.merge!(body_part)
+        end
+        body
       end
 
       private
 
-      attr_accessor :inner_body
+      attr_accessor :body_parts
 
       def request_body_base
         {
@@ -33,7 +36,6 @@ module Vantiv
           }
         }
       end
-
     end
   end
 end

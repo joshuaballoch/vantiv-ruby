@@ -1,21 +1,59 @@
 #!/usr/bin/env ruby
-require 'vantiv'
 
-unless ENV['ACCEPTOR_ID'] && ENV['APP_ID'] && ENV['LICENSE_ID']
-  raise "Vantiv License ID, Acceptor ID and Application ID required"
+require 'selenium-webdriver'
+require 'vantiv'
+require "#{Vantiv.root}/spec/support/test_paypage_server"
+require "#{Vantiv.root}/spec/support/test_paypage_driver"
+
+unless ENV['ACCEPTOR_ID'] && ENV['APP_ID'] && ENV['LICENSE_ID'] && ENV['PAYPAGE_ID']
+  raise "Vantiv License ID, Acceptor ID, Paypage ID and Application ID required"
 end
 
 Vantiv.configure do |config|
   config.license_id = ENV["LICENSE_ID"]
   config.acceptor_id = ENV["ACCEPTOR_ID"]
   config.application_id = ENV["APP_ID"]
+  config.paypage_id = ENV["PAYPAGE_ID"]
 
   config.default_report_group = '1'
 end
 
-fixtures = Dir.glob("#{Vantiv.root}/cert_fixtures/**/*")
-
 results_file = File.open("certs.txt", "w")
+
+class CertRequestBodyCompiler
+  attr_accessor :matchers
+
+  def initialize(*matchers)
+    @matchers = matchers
+  end
+
+  def compile(hash)
+    dup = {}
+    hash.each do |key, value|
+      if value.is_a?(Hash)
+        dup[key] = compile(value)
+      else
+        dup[key] = compile_value(value)
+      end
+    end
+    dup
+  end
+
+  private
+
+  def compile_value(value)
+    matchers.each do |matcher|
+      if matches = matcher[:regex].match(value)
+        matches = matches.to_a
+        matches.shift
+        matches.each do |match|
+          value = matcher[:fetcher].call(value, match)
+        end
+      end
+    end
+    value
+  end
+end
 
 class ResponseCache
   def initialize
@@ -42,41 +80,39 @@ class ResponseCache
   end
 end
 
-def sub_values(string, response_cache)
-  if matches = /.*\#\{(.*)\}.*/.match(string)
-    matches = matches.to_a
-    matches.shift
-    matches.each do |match|
-      string = string.gsub(
-        /\#\{#{match}\}/,
-        response_cache.access_value(match.split("."))
+paypage_driver = Vantiv::TestPaypageDriver.new
+
+paypage_driver.start
+response_cache = ResponseCache.new
+request_body_compiler = CertRequestBodyCompiler.new(
+  {
+    regex: /.*\$\{eProtect\.(.*)\}.*/,
+    fetcher: lambda do |value, match| 
+      value.gsub(
+        /.*\$\{eProtect\.#{match}\}.*/,
+        paypage_driver.get_paypage_registration_id(match) 
       )
     end
-    string
-  else
-    string
-  end
-end
-
-def dup_and_sub(hash, response_cache)
-  dup = {}
-  hash.each do |key, value|
-    if value.is_a?(Hash)
-      dup[key] = dup_and_sub(value, response_cache)
-    else
-      dup[key] = sub_values(value, response_cache)
+  },
+  {
+    regex: /.*\#\{(.*)\}.*/,
+    fetcher: lambda do |value, match| 
+      value.gsub(
+        /\#\{#{match}\}/,
+          response_cache.access_value(match.split("."))
+      )
     end
-  end
-  dup
-end
+  }
+)
 
-response_cache = ResponseCache.new
+fixtures = Dir.glob("#{Vantiv.root}/cert_fixtures/**/*")
 
 fixtures.each do |file_name|
   cert_name = /.*\/cert_fixtures\/(\w*).json/.match(file_name)[1]
+  next if ENV["FILTER_BY"] && !/L_#{ENV["FILTER_BY"]}_\d*/.match(cert_name)
   contents = JSON.parse(File.read(file_name))
   endpoint = Vantiv::Api::Endpoints.const_get(contents["endpoint"])
-  body = dup_and_sub(contents["body"], response_cache)
+  body = request_body_compiler.compile(contents["body"])
 
   response = Vantiv::Api::Request.new(
     endpoint: endpoint,
@@ -89,5 +125,6 @@ fixtures.each do |file_name|
   results_file << "#{cert_name},#{response.request_id}\n"
 end
 
+paypage_driver.stop
 results_file.close
 %x(open certs.txt)

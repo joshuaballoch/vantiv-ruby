@@ -1,0 +1,15 @@
+{
+  "endpoint": "AUTHORIZATION",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "20.90",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345",
+      "PartialApprovedFlag": "false"
+    },
+    "Card": {
+      "PaypageRegistrationID": "RGFQNCt6U1d1M21SeVByVTM4dHlHb1FsVkUrSmpnWXhNY0o5UkMzRlZFanZiUHVnYjN1enJXbG1WSDF4aXlNcA=="
+    }
+  }
+}

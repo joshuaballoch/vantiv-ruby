@@ -14,9 +14,6 @@
       "ExpirationYear": "16",
       "CVV": "261"
     },
-    "CardholderAuthentication": {
-      "AuthenticationValue": "BwABBJQ1AgAAAAAgJDUCAAAAAAA="
-    },
     "Address": {
       "BillingName": "Mike J. Hammer",
       "BillingAddress1": "2 Main St.",

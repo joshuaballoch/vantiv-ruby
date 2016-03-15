@@ -13,9 +13,6 @@
       "ExpirationMonth": "04",
       "ExpirationYear": "16"
     },
-    "CardholderAuthentication": {
-      "AuthenticationValue": "BwABBJQ1AgAAAAAgJDUCAAAAAAA="
-    },
     "Address": {
       "BillingName": "Bob Black",
       "BillingAddress1": "4 Main St.",

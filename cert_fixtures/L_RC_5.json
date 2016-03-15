@@ -13,9 +13,6 @@
       "ExpirationMonth": "05",
       "ExpirationYear": "16",
       "CVV": "463"
-    },
-    "CardholderAuthentication": {
-      "AuthenticationValue": "BwABBJQ1AgAAAAAgJDUCAAAAAAA="
     }
   }
 }

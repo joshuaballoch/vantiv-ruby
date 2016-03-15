@@ -1,0 +1,15 @@
+{
+  "endpoint": "AUTHORIZATION",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "20.90",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345",
+      "PartialApprovedFlag": "false"
+    },
+    "PaymentAccount": {
+      "PaymentAccountID": "#{L_EP_2.litleOnlineResponse.authorizationResponse.tokenResponse.PaymentAccountID}"
+    }
+  }
+}

@@ -1,23 +1,25 @@
 require 'spec_helper'
 
-describe "promoting a temporary token to a permanent token", type: :feature, js: true do
+describe "promoting a temporary token to a permanent token" do
   let(:response) do
     Vantiv.tokenize(temporary_token: paypage_registration_id)
   end
 
   before :all do
-    @test_paypage_server = Vantiv::TestPaypageServer.new
-    @test_paypage_server.start
+    @test_paypage_driver = Vantiv::TestPaypageDriver.new
+    @test_paypage_driver.start
   end
 
   after :all do
-    @test_paypage_server.stop
+    @test_paypage_driver.stop
   end
 
   context "with a valid temporary token" do
     before :all do
-      @card_to_tokenize = Vantiv::TestAccount.valid_account
-      @paypage_registration_id = get_paypage_registration_id
+      @paypage_registration_id = @test_paypage_driver.get_paypage_registration_id(
+        Vantiv::TestAccount.valid_account.card_number,
+        Vantiv::TestAccount.valid_account.cvv
+      )
     end
 
     let(:paypage_registration_id) { @paypage_registration_id }
@@ -62,8 +64,10 @@ describe "promoting a temporary token to a permanent token", type: :feature, js:
            (where number is technically valid, and the actual account is invalid)" do
 
     before :all do
-      @card_to_tokenize = Vantiv::TestAccount.invalid_account_number
-      @paypage_registration_id = get_paypage_registration_id
+      @paypage_registration_id = @test_paypage_driver.get_paypage_registration_id(
+        Vantiv::TestAccount.invalid_account_number.card_number,
+        Vantiv::TestAccount.invalid_account_number.cvv
+      )
     end
 
     let(:paypage_registration_id) { @paypage_registration_id }
@@ -121,23 +125,5 @@ describe "promoting a temporary token to a permanent token", type: :feature, js:
       expect(response.transaction_id).not_to eq nil
       expect(response.transaction_id).not_to eq ""
     end
-  end
-
-  def get_paypage_registration_id
-    visit(@test_paypage_server.root_path)
-    expect(page).to have_content("Vantiv Test Paypage")
-
-    within_frame "vantiv-payframe" do
-      fill_in("accountNumber", with: @card_to_tokenize.card_number)
-      fill_in("cvv", with: @card_to_tokenize.cvv)
-    end
-
-    click_button "Submit"
-
-    expect(page).to have_content "Request Complete"
-    temp_token = find("#temp-token").text
-    expect(temp_token).not_to eq nil
-    expect(temp_token).not_to eq ""
-    temp_token
   end
 end

@@ -1,6 +1,6 @@
 require 'erb'
 require 'webrick'
-require 'vantiv-ruby'
+require 'vantiv'
 
 module Vantiv
   class TestPaypageServer

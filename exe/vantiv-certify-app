@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'vantiv-ruby'
+require 'vantiv'
 
 unless ENV['ACCEPTOR_ID'] && ENV['APP_ID'] && ENV['LICENSE_ID']
   raise "Vantiv License ID, Acceptor ID and Application ID required"

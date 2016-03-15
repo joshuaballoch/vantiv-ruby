@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 ## A script to run test paypage server for development / debugging
 
-require "vantiv-ruby"
+require "vantiv"
 require "dotenv"
 Dotenv.load
 require "#{Vantiv.root}/spec/support/test_paypage_server"

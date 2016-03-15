@@ -1,6 +1,4 @@
 require 'vantiv'
-require 'capybara/rspec'
-require 'capybara/poltergeist'
 
 require 'dotenv'
 Dotenv.load

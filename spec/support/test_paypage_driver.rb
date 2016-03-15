@@ -1,3 +1,5 @@
+require "selenium-webdriver"
+
 module Vantiv
   class TestPaypageDriver
 
@@ -11,12 +13,12 @@ module Vantiv
       driver.quit
     end
 
-    def get_paypage_registration_id(card_number)
+    def get_paypage_registration_id(card_number, cvv = '123')
       driver.navigate.to test_paypage_server.root_path
 
       driver.switch_to.frame('vantiv-payframe')
       driver.find_element(:id, 'accountNumber').send_keys card_number
-      driver.find_element(:id, 'cvv').send_keys '123'
+      driver.find_element(:id, 'cvv').send_keys cvv
 
       driver.switch_to.default_content
       button = driver.find_element(:id, 'submit')

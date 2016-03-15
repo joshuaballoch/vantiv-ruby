@@ -35,12 +35,12 @@ end
 
 ## Certification
 
-Vantiv's DevHub requires merchants to certify their applications for usage with their API. To make this integration process easy, the gem provides a script to run through nearly all of these tests. The only ones not provided are e-Protect certs which, at the time of writing, must be run manually.
+Vantiv's DevHub requires merchants to certify their applications for usage with their API. To make this integration process easy, the gem provides a script to run through these tests.
 
 To certify your application, run the following script:
 
 ```
-$ LICENSE_ID=sub-your-license-id-in-here APP_ID=sub-your-app-id-in-here ACCEPTOR_ID=sub-your-acceptor-id-in-here vantiv-certify-app
+$ LICENSE_ID=sub-your-license-id-in-here APP_ID=sub-your-app-id-in-here ACCEPTOR_ID=sub-your-acceptor-id-in-here PAYPAGE_ID=your-paypage-id vantiv-certify-app
 ```
 
 A certs.txt file will be generated in the directory that the script is run, and then opened. It contains a list of DevHub Certification test names and associated Request IDs, like follows:
@@ -51,8 +51,6 @@ L_AC_2, request-id-for-L_AC_2-here
 ```
 
 Navigate to your application's page in DevHub's developer portal (apideveloper.vantiv.com). Paste the contents of this file into the validation form input field, and then click "Validate". 
-
-Your app will now almost be certified - save for the remaining, non-automated certification tests.
 
 ## Usage
 

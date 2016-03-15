@@ -14,9 +14,6 @@
       "ExpirationYear": "16",
       "CVV": "758"
     },
-    "CardholderAuthentication": {
-      "AuthenticationValue": "BwABBJQ1AgAAAAAgJDUCAAAAAAA="
-    },
     "Address": {
       "BillingName": "Eileen Jones",
       "BillingAddress1": "3 Main St.",

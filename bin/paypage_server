@@ -4,7 +4,7 @@
 require "vantiv"
 require "dotenv"
 Dotenv.load
-require "#{Vantiv.root}/spec/support/test_paypage_server"
+require "vantiv/certification/paypage_server"
 
 Vantiv.configure do |config|
   config.license_id = ENV["LICENSE_ID"]
@@ -16,5 +16,5 @@ Vantiv.configure do |config|
   config.default_report_group = '1'
 end
 
-server = Vantiv::TestPaypageServer.new(threaded: false)
+server = Vantiv::Certification::PaypageServer.new(threaded: false)
 server.start

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'vantiv/certification/paypage_driver'
 
 describe "promoting a temporary token to a permanent token" do
   let(:response) do
@@ -6,7 +7,7 @@ describe "promoting a temporary token to a permanent token" do
   end
 
   before :all do
-    @test_paypage_driver = Vantiv::TestPaypageDriver.new
+    @test_paypage_driver = Vantiv::Certification::PaypageDriver.new
     @test_paypage_driver.start
   end
 

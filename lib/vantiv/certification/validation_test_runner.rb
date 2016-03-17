@@ -8,7 +8,9 @@ module Vantiv
     class ValidationTestRunner
 
       def self.run(filter_by: '', save_to:)
-        new(filter_by: filter_by, save_to: save_to).run
+        runner = new(filter_by: filter_by, save_to: save_to)
+        runner.run
+        runner.shutdown
       end
 
       def initialize(filter_by: '', save_to:)

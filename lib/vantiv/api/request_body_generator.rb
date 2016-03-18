@@ -1,15 +1,17 @@
+require 'securerandom'
+
 module Vantiv
   module Api
     class RequestBodyGenerator
       def self.run(*args)
-        new(*args).generate
+        new(*args).run
       end
 
       def initialize(*args)
         @body_parts = args
       end
 
-      def generate
+      def run
         body = request_body_base
         body_parts.each do |body_part|
           body.merge!(body_part)
@@ -32,7 +34,7 @@ module Vantiv
             "ReportGroup" => Vantiv.default_report_group
           },
           "Application" => {
-            "ApplicationID" => Vantiv.application_id
+            "ApplicationID" => SecureRandom.hex(12)
           }
         }
       end

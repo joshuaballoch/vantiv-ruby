@@ -25,7 +25,6 @@ The gem needs the following configuration to be set on app initialization. It is
 Vantiv.configure do |config|
   config.license_id = ENV["VANTIV_LICENSE_ID"]
   config.acceptor_id = ENV["VANTIV_ACCEPTOR_ID"]
-  config.application_id = ENV["VANTIV_APP_ID"]
   config.order_source = "desired-order-source"
   config.paypage_id = ENV["VANTIV_PAYPAGE_ID"]
 
@@ -40,7 +39,7 @@ Vantiv's DevHub requires merchants to certify their applications for usage with 
 To certify your application, run the following script:
 
 ```
-$ LICENSE_ID=sub-your-license-id-in-here APP_ID=sub-your-app-id-in-here ACCEPTOR_ID=sub-your-acceptor-id-in-here PAYPAGE_ID=your-paypage-id vantiv-certify-app
+$ LICENSE_ID=sub-your-license-id-in-here ACCEPTOR_ID=sub-your-acceptor-id-in-here PAYPAGE_ID=your-paypage-id vantiv-certify-app
 ```
 
 A certs.txt file will be generated in the directory that the script is run, and then opened. It contains a list of DevHub Certification test names and associated Request IDs, like follows:

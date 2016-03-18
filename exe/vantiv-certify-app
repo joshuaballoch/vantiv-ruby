@@ -3,14 +3,13 @@
 require 'vantiv'
 require 'vantiv/certification/validation_test_runner'
 
-unless ENV['ACCEPTOR_ID'] && ENV['APP_ID'] && ENV['LICENSE_ID'] && ENV['PAYPAGE_ID']
+unless ENV['ACCEPTOR_ID'] && ENV['LICENSE_ID'] && ENV['PAYPAGE_ID']
   raise "Vantiv License ID, Acceptor ID, Paypage ID and Application ID required"
 end
 
 Vantiv.configure do |config|
   config.license_id = ENV["LICENSE_ID"]
   config.acceptor_id = ENV["ACCEPTOR_ID"]
-  config.application_id = ENV["APP_ID"]
   config.paypage_id = ENV["PAYPAGE_ID"]
 
   config.default_report_group = '1'

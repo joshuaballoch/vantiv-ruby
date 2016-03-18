@@ -13,6 +13,7 @@ describe Vantiv::Api::RequestBodyGenerator do
         "PaymentAccountID" => "q2"
       }
     }
+    allow(SecureRandom).to receive(:hex) { "random-hex" }
 
     body = Vantiv::Api::RequestBodyGenerator.run(hash1, hash2)
     expect(body).to eq(
@@ -26,7 +27,7 @@ describe Vantiv::Api::RequestBodyGenerator do
           "ReportGroup" => Vantiv.default_report_group
         },
         "Application" => {
-          "ApplicationID" => Vantiv.application_id
+          "ApplicationID" => "random-hex"
         },
         "Transaction" => {
           "Blah" => "5"
@@ -35,6 +36,14 @@ describe Vantiv::Api::RequestBodyGenerator do
           "PaymentAccountID" => "q2"
         }
       }
+    )
+  end
+
+  it "creates a new application id each time" do
+    body_1 = Vantiv::Api::RequestBodyGenerator.run({})
+    body_2 = Vantiv::Api::RequestBodyGenerator.run({})
+    expect(body_1["Application"]["ApplicationID"]).not_to eq(
+      body_2["Application"]["ApplicationID"]
     )
   end
 end

@@ -8,9 +8,7 @@ module Vantiv
     class ValidationTestRunner
 
       def self.run(filter_by: '', save_to:)
-        runner = new(filter_by: filter_by, save_to: save_to)
-        runner.run
-        runner.shutdown
+        new(filter_by: filter_by, save_to: save_to).run
       end
 
       def initialize(filter_by: '', save_to:)
@@ -30,6 +28,7 @@ module Vantiv
             body: create_body(contents["body"])
           )
         end
+        shutdown
       end
 
       private
@@ -38,7 +37,7 @@ module Vantiv
 
       def create_body(base_body)
         compiled_base = request_body_compiler.compile(base_body)
-        Vantiv::Api::RequestBody.generate(compiled_base)
+        Vantiv::Api::RequestBodyGenerator.run(compiled_base)
       end
 
       def fixtures

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "vantiv-ruby"
+require "vantiv"
 
 require "pry"
 Pry.start

@@ -9,7 +9,8 @@ module Vantiv
       raise ArgumentError.new("Blank temporary token (PaypageRegistrationID): \n
                                Check that paypage error handling is implemented correctly.")
     end
-    body = Api::TokenizationRequestBody.generate(
+
+    body = Api::RequestBody.for_tokenization(
       paypage_registration_id: temporary_token
     )
     Api::Request.new(
@@ -20,11 +21,11 @@ module Vantiv
   end
 
   def self.auth(amount:, payment_account_id:, customer_id:, order_id:)
-    body = Api::AuthRequestBody.generate(
+    body = Api::RequestBody.for_auth_or_sale(
       amount: amount,
+      order_id: order_id,
       customer_id: customer_id,
-      payment_account_id: payment_account_id,
-      order_id: order_id
+      payment_account_id: payment_account_id
     )
     Api::Request.new(
       endpoint: Api::Endpoints::AUTHORIZATION,
@@ -48,11 +49,11 @@ module Vantiv
   end
 
   def self.auth_capture(amount:, payment_account_id:, customer_id:, order_id:)
-    body = Api::SaleRequestBody.generate(
+    body = Api::RequestBody.for_auth_or_sale(
       amount: amount,
+      order_id: order_id,
       customer_id: customer_id,
-      payment_account_id: payment_account_id,
-      order_id: order_id
+      payment_account_id: payment_account_id
     )
     Api::Request.new(
       endpoint: Api::Endpoints::SALE,
@@ -90,11 +91,16 @@ module Vantiv
   end
 
   class << self
-    attr_accessor :license_id, :acceptor_id, :application_id, :default_report_group, :order_source, :paypage_id
+    [:license_id, :acceptor_id, :default_report_group, :order_source, :paypage_id].each do |config_var|
+      define_method :"#{config_var}" do
+        value = instance_variable_get(:"@#{config_var}")
+        raise "Missing Vantiv configuration: #{config_var}" unless value
+        value
+      end
 
-    def paypage_id
-      raise "Missing Vantiv configuration: paypage_id" unless @paypage_id
-      @paypage_id
+      define_method :"#{config_var}=" do |value|
+        instance_variable_set(:"@#{config_var}", value)
+      end
     end
   end
 

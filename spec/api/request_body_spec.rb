@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Vantiv::Api::RequestBody do
-
   describe ".for_tokenization" do
     subject(:request_body) do
       Vantiv::Api::RequestBody.for_tokenization(
@@ -15,6 +14,34 @@ describe Vantiv::Api::RequestBody do
 
     it "includes the paypage registration ID correctly" do
       expect(request_body["Card"]["PaypageRegistrationID"]).to eq "some-temp-token"
+    end
+  end
+
+  describe ".for_capture" do
+    subject(:request_body) do
+      Vantiv::Api::RequestBody.for_capture(
+        amount: @amount,
+        transaction_id: "transactionid123"
+      )
+    end
+
+    it "includes the transaction id" do
+      @amount = nil
+      expect(request_body["Transaction"]).to eq(
+        {
+          "TransactionID" => "transactionid123"
+        }
+      )
+    end
+
+    it "can include a transaction amount" do
+      @amount = 58888
+      expect(request_body["Transaction"]).to eq(
+        {
+          "TransactionID" => "transactionid123",
+          "TransactionAmount" => "588.88"
+        }
+      )
     end
   end
 

@@ -41,10 +41,16 @@ module Vantiv
     ).run
   end
 
-  def self.capture(body)
+  def self.capture(transaction_id:, amount: nil)
+    body = Api::RequestBody.for_capture(
+      transaction_id: transaction_id,
+      amount: amount
+    )
+
     Api::Request.new(
       endpoint: Api::Endpoints::CAPTURE,
-      body: body
+      body: body,
+      response_class: Api::CaptureResponse
     ).run
   end
 

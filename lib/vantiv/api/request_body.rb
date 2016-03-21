@@ -43,6 +43,10 @@ module Vantiv
         )
       end
 
+      def self.for_void(transaction_id:)
+        RequestBodyGenerator.run(tied_transaction_object(transaction_id: transaction_id))
+      end
+
       def self.card_object_for_tokenization(paypage_registration_id)
         {
           "Card" => {

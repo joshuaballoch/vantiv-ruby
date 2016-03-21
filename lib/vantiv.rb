@@ -97,10 +97,11 @@ module Vantiv
   end
 
   # NOTE: can void credits
-  def self.void(body)
+  def self.void(transaction_id:)
     Api::Request.new(
       endpoint: Api::Endpoints::VOID,
-      body: body
+      body: Api::RequestBody.for_void(transaction_id: transaction_id),
+      response_class: Api::VoidResponse
     ).run
   end
 

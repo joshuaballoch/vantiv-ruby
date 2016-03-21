@@ -18,6 +18,12 @@ module Vantiv
         )
       end
 
+      def self.for_credit(transaction_id:, amount: nil)
+        RequestBodyGenerator.run(
+          tied_transaction_object(transaction_id: transaction_id, amount: amount)
+        )
+      end
+
       def self.for_return(amount:, customer_id:, order_id:, payment_account_id:)
         transaction = transaction_object(
           amount: amount,

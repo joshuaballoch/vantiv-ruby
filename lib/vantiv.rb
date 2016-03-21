@@ -70,10 +70,15 @@ module Vantiv
 
   # NOTE: ActiveMerchant's #refund... only for use on a capture or sale it seems
   #       -> 'returns' are refunds too, credits are tied to a sale/capture, returns can be willy nilly
-  def self.credit(body)
+  def self.credit(transaction_id:, amount: nil)
+    body = Api::RequestBody.for_credit(
+      amount: amount,
+      transaction_id: transaction_id
+    )
     Api::Request.new(
       endpoint: Api::Endpoints::CREDIT,
-      body: body
+      body: body,
+      response_class: Api::CreditResponse
     ).run
   end
 

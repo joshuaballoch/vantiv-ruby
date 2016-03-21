@@ -77,10 +77,17 @@ module Vantiv
     ).run
   end
 
-  def self.return(body)
+  def self.return(amount:, payment_account_id:, customer_id:, order_id:)
+    body = Api::RequestBody.for_return(
+      amount: amount,
+      customer_id: customer_id,
+      order_id: order_id,
+      payment_account_id: payment_account_id
+    )
     Api::Request.new(
       endpoint: Api::Endpoints::RETURN,
-      body: body
+      body: body,
+      response_class: Api::ReturnResponse
     ).run
   end
 

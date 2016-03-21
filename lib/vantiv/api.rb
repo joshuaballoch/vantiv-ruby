@@ -1,6 +1,7 @@
 require 'vantiv/api/response'
 require 'vantiv/api/authorization_response'
 require 'vantiv/api/capture_response'
+require 'vantiv/api/return_response'
 require 'vantiv/api/sale_response'
 require 'vantiv/api/tokenization_response'
 

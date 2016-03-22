@@ -103,7 +103,7 @@ module Vantiv
       response = Api::Request.new(
         endpoint: "payment/sp2/services/v1/paymentAccountCreate",
         body: tokenization_request_body,
-        response_class: Api::Response
+        response_object: Api::Response.new
       ).run
       raise "Tokenization Request not 200 OK, it's #{response.raw_response.code_type}\n Response: #{response.body}" unless response.raw_response.code_type == Net::HTTPOK
       response.body["litleOnlineResponse"]["registerTokenResponse"]["PaymentAccountID"]

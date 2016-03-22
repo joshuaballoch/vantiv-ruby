@@ -16,7 +16,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::TOKENIZATION,
       body: body,
-      response_class: Api::TokenizationResponse
+      response_object: Api::TokenizationResponse.new
     ).run
   end
 
@@ -30,7 +30,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::AUTHORIZATION,
       body: body,
-      response_class: Api::AuthorizationResponse
+      response_object: Api::LiveTransactionResponse.new(:auth)
     ).run
   end
 
@@ -50,7 +50,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::CAPTURE,
       body: body,
-      response_class: Api::CaptureResponse
+      response_object: Api::TiedTransactionResponse.new(:capture)
     ).run
   end
 
@@ -64,31 +64,44 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::SALE,
       body: body,
-      response_class: Api::SaleResponse
+      response_object: Api::LiveTransactionResponse.new(:sale)
     ).run
   end
 
   # NOTE: ActiveMerchant's #refund... only for use on a capture or sale it seems
   #       -> 'returns' are refunds too, credits are tied to a sale/capture, returns can be willy nilly
-  def self.credit(body)
+  def self.credit(transaction_id:, amount: nil)
+    body = Api::RequestBody.for_credit(
+      amount: amount,
+      transaction_id: transaction_id
+    )
     Api::Request.new(
       endpoint: Api::Endpoints::CREDIT,
-      body: body
+      body: body,
+      response_object: Api::TiedTransactionResponse.new(:credit)
     ).run
   end
 
-  def self.return(body)
+  def self.return(amount:, payment_account_id:, customer_id:, order_id:)
+    body = Api::RequestBody.for_return(
+      amount: amount,
+      customer_id: customer_id,
+      order_id: order_id,
+      payment_account_id: payment_account_id
+    )
     Api::Request.new(
       endpoint: Api::Endpoints::RETURN,
-      body: body
+      body: body,
+      response_object: Api::TiedTransactionResponse.new(:return)
     ).run
   end
 
   # NOTE: can void credits
-  def self.void(body)
+  def self.void(transaction_id:)
     Api::Request.new(
       endpoint: Api::Endpoints::VOID,
-      body: body
+      body: Api::RequestBody.for_void(transaction_id: transaction_id),
+      response_object: Api::TiedTransactionResponse.new(:void)
     ).run
   end
 

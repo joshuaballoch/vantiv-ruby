@@ -92,7 +92,7 @@ module Vantiv
         response = Vantiv::Api::Request.new(
           endpoint: endpoint,
           body: body,
-          response_class: Vantiv::Api::Response
+          response_object: Vantiv::Api::Response.new
         ).run
 
         response_cache.push(cert_name, response)

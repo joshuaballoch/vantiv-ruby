@@ -3,7 +3,7 @@ module Vantiv
     class Response
       attr_reader :raw_response, :body
 
-      def initialize(raw_response)
+      def load(raw_response)
         @raw_response = raw_response
         @body = JSON.parse(raw_response.body)
       end
@@ -35,16 +35,14 @@ module Vantiv
 
       private
 
+      attr_reader :transaction_response_name
+
       def litle_response
         api_level_failure? ? {} : body["litleOnlineResponse"]
       end
 
       def litle_transaction_response
         api_level_failure? ? {} : litle_response[transaction_response_name]
-      end
-
-      def transaction_response_name
-        raise "not implemented!"
       end
     end
   end

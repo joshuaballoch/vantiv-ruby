@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Vantiv::Api::Request do
   let(:general_response_class) do
     Class.new(Vantiv::Api::Response) do
-      def transaction_response_name
-        "tokenizationResponse"
+      def initialize
+        @transaction_response_name = "tokenizationResponse"
       end
     end
   end
@@ -15,7 +15,7 @@ describe Vantiv::Api::Request do
       body: Vantiv::Api::RequestBody.for_tokenization(
         paypage_registration_id: "1234"
       ),
-      response_class: general_response_class
+      response_object: general_response_class.new
     ).run
   end
 

@@ -16,7 +16,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::TOKENIZATION,
       body: body,
-      response_class: Api::TokenizationResponse
+      response_object: Api::TokenizationResponse.new
     ).run
   end
 
@@ -30,7 +30,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::AUTHORIZATION,
       body: body,
-      response_class: Api::AuthorizationResponse
+      response_object: Api::LiveTransactionResponse.new(:auth)
     ).run
   end
 
@@ -50,7 +50,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::CAPTURE,
       body: body,
-      response_class: Api::CaptureResponse
+      response_object: Api::TiedTransactionResponse.new(:capture)
     ).run
   end
 
@@ -64,7 +64,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::SALE,
       body: body,
-      response_class: Api::SaleResponse
+      response_object: Api::LiveTransactionResponse.new(:sale)
     ).run
   end
 
@@ -78,7 +78,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::CREDIT,
       body: body,
-      response_class: Api::CreditResponse
+      response_object: Api::TiedTransactionResponse.new(:credit)
     ).run
   end
 
@@ -92,7 +92,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::RETURN,
       body: body,
-      response_class: Api::ReturnResponse
+      response_object: Api::TiedTransactionResponse.new(:return)
     ).run
   end
 
@@ -101,7 +101,7 @@ module Vantiv
     Api::Request.new(
       endpoint: Api::Endpoints::VOID,
       body: Api::RequestBody.for_void(transaction_id: transaction_id),
-      response_class: Api::VoidResponse
+      response_object: Api::TiedTransactionResponse.new(:void)
     ).run
   end
 

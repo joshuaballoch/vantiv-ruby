@@ -9,7 +9,7 @@
       "PartialApprovedFlag": "false"
     },
     "PaymentAccount": {
-      "PaymentAccountID": "#{L_EP_2.litleOnlineResponse.authorizationResponse.tokenResponse.PaymentAccountID}"
+      "PaymentAccountID": "#{L_EP_2.litleOnlineResponse.saleResponse.tokenResponse.PaymentAccountID}"
     }
   }
 }

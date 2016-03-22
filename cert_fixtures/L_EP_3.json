@@ -1,15 +1,8 @@
 {
   "endpoint": "TOKENIZATION",
   "body": {
-    "Transaction": {
-      "ReferenceNumber": "1",
-      "TransactionAmount": "20.90",
-      "OrderSource": "ecommerce",
-      "CustomerID": "345",
-      "PartialApprovedFlag": "false"
-    },
     "Card": {
-      "PaypageRegistrationID": "${eProtect.6011010000000003}"
+      "PaypageRegistrationID": "${eProtect.6011010140000004}"
     }
   }
 }

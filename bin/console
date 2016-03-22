@@ -3,5 +3,16 @@
 require "bundler/setup"
 require "vantiv"
 
+require "dotenv"
+Dotenv.load
+Vantiv.configure do |config|
+  config.license_id = ENV["LICENSE_ID"]
+  config.acceptor_id = ENV["ACCEPTOR_ID"]
+  config.order_source = "ecommerce"
+  config.paypage_id = ENV["PAYPAGE_ID"]
+
+  config.default_report_group = '1'
+end
+
 require "pry"
 Pry.start

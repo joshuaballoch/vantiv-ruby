@@ -64,9 +64,9 @@ describe Vantiv::Api::RequestBody do
     end
   end
 
-  describe ".transaction_object" do
-    def transaction_object
-      Vantiv::Api::RequestBody.transaction_object(
+  describe ".transaction_element" do
+    def transaction_element
+      Vantiv::Api::RequestBody.transaction_element(
         amount: @amount,
         customer_id: "some-cust",
         order_id: "some-order"
@@ -79,23 +79,23 @@ describe Vantiv::Api::RequestBody do
 
     it "formats the amount (in cents) as dollar 2 decimal format" do
       @amount = 4224
-      expect(transaction_object["Transaction"]["TransactionAmount"]).to eq "42.24"
+      expect(transaction_element["Transaction"]["TransactionAmount"]).to eq "42.24"
       @amount = 424
-      expect(transaction_object["Transaction"]["TransactionAmount"]).to eq "4.24"
+      expect(transaction_element["Transaction"]["TransactionAmount"]).to eq "4.24"
       @amount = 881424
-      expect(transaction_object["Transaction"]["TransactionAmount"]).to eq "8814.24"
+      expect(transaction_element["Transaction"]["TransactionAmount"]).to eq "8814.24"
     end
 
     it "includes a customer ID (required by Vantiv)" do
-      expect(transaction_object["Transaction"]["CustomerID"]).to eq "some-cust"
+      expect(transaction_element["Transaction"]["CustomerID"]).to eq "some-cust"
     end
 
     it "includes the default order source" do
-      expect(transaction_object["Transaction"]["OrderSource"]).to eq "ecommerce"
+      expect(transaction_element["Transaction"]["OrderSource"]).to eq "ecommerce"
     end
 
     it "includes the merchant reference number for the order (required by Vantiv)" do
-      expect(transaction_object["Transaction"]["ReferenceNumber"]).to eq "some-order"
+      expect(transaction_element["Transaction"]["ReferenceNumber"]).to eq "some-order"
     end
   end
 end

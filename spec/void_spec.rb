@@ -44,7 +44,7 @@ describe "processing voids" do
         order_id: order_id,
         payment_account_id: payment_account_id
       )
-      Vantiv.credit(transaction_id: sale.transaction_id)
+      Vantiv.credit(transaction_id: sale.transaction_id, amount: 5)
     end
 
     it "returns success when transaction is received" do
@@ -91,7 +91,7 @@ describe "processing voids" do
 
   context "on prior same-day refunds" do
     let(:prior_transaction) do
-      Vantiv.return(
+      Vantiv.refund(
         amount: 81800,
         customer_id: customer_id,
         order_id: order_id,

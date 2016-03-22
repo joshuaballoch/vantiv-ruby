@@ -3,6 +3,9 @@
   "body": {
     "Card": {
       "PaypageRegistrationID": "${eProtect.6011010140000004}"
+    },
+    "Transaction": {
+      "CustomerID": "123"
     }
   }
 }

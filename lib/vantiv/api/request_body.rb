@@ -12,6 +12,12 @@ module Vantiv
         )
       end
 
+      def self.for_auth_reversal(transaction_id:, amount: nil)
+        RequestBodyGenerator.run(
+          tied_transaction_element(transaction_id: transaction_id, amount: amount)
+        )
+      end
+
       def self.for_capture(transaction_id:, amount: nil)
         RequestBodyGenerator.run(
           tied_transaction_element(transaction_id: transaction_id, amount: amount)

@@ -1,0 +1,11 @@
+{
+  "endpoint": "TOKENIZATION",
+  "body": {
+    "Transaction": {
+      "CustomerID": "123"
+    },
+    "Card": {
+      "AccountNumber": "4457119999999999"
+    }
+  }
+}

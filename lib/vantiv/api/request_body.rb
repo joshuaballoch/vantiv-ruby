@@ -43,6 +43,19 @@ module Vantiv
         )
       end
 
+      def self.for_direct_post_tokenization(card_number:, expiry_month:, expiry_year:, cvv:)
+        RequestBodyGenerator.run(
+          {
+            "Card" => {
+              "AccountNumber" => card_number,
+              "ExpirationMonth" => expiry_month,
+              "ExpirationYear" => expiry_year,
+              "CVV" => cvv
+            }
+          }
+        )
+      end
+
       def self.for_void(transaction_id:)
         RequestBodyGenerator.run(tied_transaction_element(transaction_id: transaction_id))
       end

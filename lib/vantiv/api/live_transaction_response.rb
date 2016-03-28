@@ -5,6 +5,7 @@ module Vantiv
         approved: '000',
         insufficient_funds: '110',
         invalid_account_number: '301',
+        expired_card: '305',
         token_not_found: '822'
       }
 
@@ -33,6 +34,10 @@ module Vantiv
 
       def invalid_account_number?
         response_code == RESPONSE_CODES[:invalid_account_number]
+      end
+
+      def expired_card?
+        response_code == RESPONSE_CODES[:expired_card]
       end
 
       private

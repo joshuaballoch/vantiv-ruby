@@ -5,6 +5,7 @@ module Vantiv
         transaction_received: '001'
       }
       TIED_TRANSACTION_RESPONSE_NAMES = {
+        auth_reversal: 'authReversalResponse',
         capture: "captureResponse",
         credit: "creditResponse",
         return: "creditResponse",

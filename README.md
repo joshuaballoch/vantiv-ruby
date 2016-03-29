@@ -49,7 +49,7 @@ L_AC_1, request-id-for-L_AC_1-here
 L_AC_2, request-id-for-L_AC_2-here
 ```
 
-Navigate to your application's page in DevHub's developer portal (apideveloper.vantiv.com). Paste the contents of this file into the validation form input field, and then click "Validate". 
+Navigate to your application's page in DevHub's developer portal (apideveloper.vantiv.com). Paste the contents of this file into the validation form input field, and then click "Validate".
 
 ## Usage
 
@@ -59,7 +59,7 @@ The vantiv-ruby gem provides a simple ruby client for interacting with Vantiv's 
 2. Run the following transactions on customers' accounts:
 
   1. Authorizations (Vantiv.auth)
-  2. Authorization reversals (Vantiv.reverse_auth)
+  2. Authorization reversals (Vantiv.auth_reversal)
   3. Capturing authorizations (Vantiv.capture)
   4. Direct authorization-and-captures (sales) (Vantiv.auth_capture)
   5. Credits (Vantiv.credit)
@@ -220,7 +220,16 @@ Notes:
 
 ### Authorization Reversals
 
-> The Authorization Reversal transaction enables you to remove the hold on any funds being held by an Authorization. The original Authorization transaction must have been processed within the system.
+Authorization reversals allow a merchant to remove a hold on a client's credit card, freeing up funds to use on other purchases. Authorization reversals can reverse the full amount of an authorization, or the remaining balance after a partial capture of an authorization.
+Amount must be less than the amount authorized.
+
+```ruby
+Vantiv.auth_reversal(
+  transaction_id: 'transaction-id-from-auth', # retrieved earlier
+  amount: 10000, # amount in cents, as an integer. must be less than or equal to auth amount.
+)
+
+```
 
 ### Capturing Authorizations
 

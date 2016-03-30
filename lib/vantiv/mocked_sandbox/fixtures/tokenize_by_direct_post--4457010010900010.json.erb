@@ -1,0 +1,21 @@
+{
+  "httpok": true,
+  "http_response_code": "200",
+  "response_body": {
+    "litleOnlineResponse": {
+      "@version": "10.2",
+      "@response": "0",
+      "@message": "Valid Format",
+      "registerTokenResponse": {
+        "@id": "3a4d4089865d97b4b9afc1ee",
+        "@reportGroup": "<%= Vantiv.default_report_group %>",
+        "response": "820",
+        "responseTime": "<%= Time.now.strftime('%FT%T') %>",
+        "message": "Credit card number was invalid",
+        "TransactionID": "<%= rand(10**17) %>",
+        "PaymentAccountID": ""
+      }
+    },
+    "RequestID": "4546b895-8388-4913-8d11-398f92997d2d"
+  }
+}

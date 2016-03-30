@@ -1,7 +1,7 @@
 module Vantiv
   module Api
     class TokenizationResponse < Api::Response
-      ResponseCodes = {
+      RESPONSE_CODES = {
         account_successfully_registered: "801",
         account_already_registered: "802",
         credit_card_number_invalid: "820",
@@ -26,11 +26,15 @@ module Vantiv
         success? ? litle_transaction_response["PaymentAccountID"] : nil
       end
 
+      def invalid_card_number?
+        response_code == RESPONSE_CODES[:credit_card_number_invalid]
+      end
+
       private
 
       def tokenization_successful?
-        response_code == ResponseCodes[:account_successfully_registered] ||
-          response_code == ResponseCodes[:account_already_registered]
+        response_code == RESPONSE_CODES[:account_successfully_registered] ||
+          response_code == RESPONSE_CODES[:account_already_registered]
       end
 
       def transaction_response_name

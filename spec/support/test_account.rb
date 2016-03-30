@@ -30,6 +30,19 @@ module Vantiv
       )
     end
 
+    def self.invalid_card_number
+      new("4716605112879585", "01", "2020", "123")
+    end
+
+    def self.expired
+      fetch_account(
+        card_number: "5112001900000003",
+        expiry_month: "01",
+        expiry_year: "2020",
+        cvv: "123"
+      )
+    end
+
     def self.invalid_account_number
       fetch_account(
         card_number: "5112010100000002",

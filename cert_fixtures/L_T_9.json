@@ -1,0 +1,20 @@
+{
+  "endpoint": "AUTHORIZATION",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "150.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345",
+      "PartialApprovedFlag": "false"
+    },
+    "Card": {
+      "ExpirationMonth": "11",
+      "ExpirationYear": "16",
+      "CVV": "987"
+    },
+    "PaymentAccount": {
+      "PaymentAccountID": "#{L_T_8.litleOnlineResponse.authorizationResponse.tokenResponse.PaymentAccountID}"
+    }
+  }
+}

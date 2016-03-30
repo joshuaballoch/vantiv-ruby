@@ -1,0 +1,19 @@
+{
+  "endpoint": "AUTHORIZATION",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "150.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345",
+      "PartialApprovedFlag": "false"
+    },
+    "Card": {
+      "ExpirationMonth": "11",
+      "ExpirationYear": "16"
+    },
+    "PaymentAccount": {
+      "PaymentAccountID": "1111000100092332"
+    }
+  }
+}

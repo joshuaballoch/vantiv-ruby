@@ -118,7 +118,7 @@ describe "promoting a temporary token to a permanent token" do
 
     it "returns a corresponding response code" do
       expect(response.response_code).to eq(
-        Vantiv::Api::TokenizationResponse::ResponseCodes[:invalid_paypage_registration_id]
+        Vantiv::Api::TokenizationResponse::RESPONSE_CODES[:invalid_paypage_registration_id]
       )
     end
 

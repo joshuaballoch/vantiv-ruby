@@ -20,6 +20,20 @@ module Vantiv
     ).run
   end
 
+  def self.tokenize_by_direct_post(card_number:, expiry_month:, expiry_year:, cvv:)
+    body = Api::RequestBody.for_direct_post_tokenization(
+      card_number: card_number,
+      expiry_month: expiry_month,
+      expiry_year: expiry_year,
+      cvv: cvv
+    )
+    Api::Request.new(
+      endpoint: Api::Endpoints::TOKENIZATION,
+      body: body,
+      response_object: Api::TokenizationResponse.new
+    ).run
+  end
+
   def self.auth(amount:, payment_account_id:, customer_id:, order_id:)
     body = Api::RequestBody.for_auth_or_sale(
       amount: amount,

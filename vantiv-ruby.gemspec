@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'vantiv/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "vantiv-ruby"
+  spec.name          = "vantiv"
   spec.version       = Vantiv::VERSION
-  spec.authors       = ["Joshua Balloch"]
-  spec.email         = ["joshuaballoch@gmail.com"]
+  spec.authors       = ["Joshua Balloch", "Chris Voxland"]
+  spec.email         = ["joshuaballoch@gmail.com", "chrisvoxland@gmail.com"]
 
   spec.summary       = %q{A simple ruby client to use Vantiv's DevHub API}
   spec.homepage      = "https://github.com/plated/vantiv-ruby"

@@ -1,0 +1,23 @@
+{
+  "httpok": true,
+  "http_response_code": "200",
+  "response_body": {
+    "litleOnlineResponse": {
+      "@version": "10.2",
+      "@response": "0",
+      "@message": "Valid Format",
+      "registerTokenResponse": {
+        "@id": "9cf8372cf4a87409b1406d26",
+        "@reportGroup": "<%= Vantiv.default_report_group %>",
+        "response": "801",
+        "responseTime": "<%= Time.now.strftime('%FT%T') %>",
+        "message": "Account number was successfully registered",
+        "bin": "511200",
+        "TransactionID": "<%= rand(10**17) %>",
+        "PaymentAccountID": "1111111111130006",
+        "Type": "MC"
+      }
+    },
+    "RequestID": "d4d086b8-3f6c-4689-ae1e-3159a32d357b"
+  }
+}

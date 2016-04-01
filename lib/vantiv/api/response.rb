@@ -1,11 +1,12 @@
 module Vantiv
   module Api
     class Response
-      attr_reader :raw_response, :body
+      attr_reader :httpok, :http_response_code, :body
 
-      def load(raw_response)
-        @raw_response = raw_response
-        @body = JSON.parse(raw_response.body)
+      def load(httpok:, http_response_code:, raw_body:)
+        @httpok = httpok
+        @http_response_code = http_response_code
+        @body = JSON.parse(raw_body)
       end
 
       # Only returned by cert API?
@@ -14,7 +15,7 @@ module Vantiv
       end
 
       def api_level_failure?
-        raw_response.code_type != Net::HTTPOK ||
+        !httpok ||
           # NOTE: this kind of sucks, but at the commit point, the DevHub
           #   Api sometimes gives 200OK when litle had a parse issue and returns
           #   'Error validating xml data...' instead of an actual error

@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
-## A script to run test paypage server for development / debugging
 
 require "vantiv"
+require "vantiv/mocked_sandbox/fixture_generator"
+
 require "dotenv"
 Dotenv.load
-require "vantiv/certification/paypage_server"
-
 Vantiv.configure do |config|
   config.environment = Vantiv::Environment::CERTIFICATION
   config.license_id = ENV["LICENSE_ID"]
@@ -16,5 +15,9 @@ Vantiv.configure do |config|
   config.default_report_group = '1'
 end
 
-server = Vantiv::Certification::PaypageServer.new(threaded: false)
-server.start
+if File.directory? Vantiv::MockedSandbox.fixtures_directory
+  FileUtils.rm_rf("#{Vantiv::MockedSandbox.fixtures_directory}/.", secure: true)
+end
+FileUtils.mkdir_p(Vantiv::MockedSandbox.fixtures_directory)
+
+Vantiv::MockedSandbox::FixtureGenerator.generate_all

@@ -5,6 +5,7 @@ Dotenv.load
 Dir["#{Vantiv.root}/spec/support/**/*.rb"].each {|f| require f}
 
 Vantiv.configure do |config|
+  config.environment = Vantiv::Environment::CERTIFICATION
   config.license_id = ENV["LICENSE_ID"]
   config.acceptor_id = ENV["ACCEPTOR_ID"]
   config.order_source = "ecommerce"

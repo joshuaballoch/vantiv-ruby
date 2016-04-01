@@ -10,13 +10,22 @@ module Vantiv
     end
 
     def run
+      response_object.load(run_request)
+      response_object
+    end
+
+    def run_request
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
       request = Net::HTTP::Post.new(uri.request_uri, header)
       request.body = body
-      response_object.load(http.request(request))
-      response_object
+      raw_response = http.request(request)
+      {
+        httpok: raw_response.code_type == Net::HTTPOK,
+        http_response_code: raw_response.code,
+        raw_body: raw_response.body
+      }
     end
 
     private
@@ -31,7 +40,15 @@ module Vantiv
     end
 
     def uri
-      @uri ||= URI.parse("https://apis.cert.vantiv.com/#{endpoint}")
+      @uri ||= URI.parse("#{root_uri}/#{endpoint}")
+    end
+
+    def root_uri
+      if Vantiv::Environment.production?
+        "https://apis.vantiv.com"
+      elsif Vantiv::Environment.certification?
+        "https://apis.cert.vantiv.com"
+      end
     end
   end
 end

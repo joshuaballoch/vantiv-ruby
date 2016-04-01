@@ -285,6 +285,58 @@ TODO: Add usage info
 
 TODO: Add usage info
 
+## Usage in non-production environments
+
+To use the gem in any non-production environment, set the client's environment to the certification environment.
+
+```ruby
+Vantiv.configure do |config|
+  config.environment = Vantiv::Environment::CERTIFICATION
+end
+```
+
+This directs the gem to make API requests to Vantiv's pre-live, certification environment. Transactions made in this environment behave like in production, but do not result in any charges going through.
+
+Vantiv provides a whitelist of card numbers that lead to certain types of behaviour that merchants may wish to enact when developing their applications.
+
+The gem provides a simple `Vantiv::TestCard` class for users' convenience. For example, Vantiv's whitelist includes a Visa card that maps to a 'valid account' - one for which all auths / charges will process successfully. This info can be accessed via `Vantiv::TestCard`, which returns an object with all of the card info needed:
+
+```ruby
+card = Vantiv::TestCard.valid_account
+card.card_number
+card.cvv
+card.expiry_month
+card.expiry_year
+card.network
+card.name
+```
+
+The `TestCard` class does not encompass the complete list of whitelisted cards, though more cards will continue to be added to it. For a complete list & more information on Vantiv's whitelisted cards, please see Vantiv's documentation.
+
+NOTE: The card object also has a `mocked_sandbox_payment_account_id`. This is not the payment_account_id that the pre-live environment will return for the card - this varies from merchant to merchant.
+
+## Usage in test environments
+
+This gem comes prepackaged with a way to operate in applications' test environments without making external Web requests. Users can rest assured that this self-mocked setup responds exactly like the Vantiv pre-live (certification) environment does. It is *highly recommended* that users enable this in their tests.
+
+To enable this, simply add the following to your spec_helper, if using RSpec, or call this at the beginning of the test suite:
+
+```ruby
+Vantiv::MockedSandbox.enable_self_mocked_requests!
+```
+
+From a user perspective, the gem will behave identically as when it is not self mocked. Users can use `TestCard`s to get the responses they would also expect to receive in the certification environment. The only difference is that in mocked mode, the gem will return stable payment_account_ids for tokenizing card information, which can be accessed on a test card as `#mocked_sandbox_payment_account_id`
+
+The only gotcha is that only whitelisted cards included in the `TestCard` class will function in the test environment. If there is one missing that is useful to you, please open an issue (or a PR).
+
+See 'Usage in non-production environments' above for more information.
+
+If it is _necessary_ to, this can be disabled at any time:
+
+```ruby
+Vantiv::MockedSandbox.disable_self_mocked_requests!
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

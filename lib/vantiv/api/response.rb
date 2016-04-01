@@ -3,10 +3,10 @@ module Vantiv
     class Response
       attr_reader :httpok, :http_response_code, :body
 
-      def load(httpok:, http_response_code:, raw_body:)
+      def load(httpok:, http_response_code:, body:)
         @httpok = httpok
         @http_response_code = http_response_code
-        @body = JSON.parse(raw_body)
+        @body = body
       end
 
       # Only returned by cert API?

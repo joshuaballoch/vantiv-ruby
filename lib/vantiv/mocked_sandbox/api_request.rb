@@ -21,7 +21,7 @@ module Vantiv
         {
           httpok: fixture["httpok"],
           http_response_code: fixture["http_response_code"],
-          raw_body: ERB.new(fixture["response_body"]).result(binding)
+          body: JSON.parse(ERB.new(fixture["response_body"]).result(binding))
         }
       end
 

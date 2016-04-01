@@ -25,6 +25,11 @@ describe "auth_capture (Sale)" do
       expect(response.transaction_id).not_to eq nil
       expect(response.transaction_id).not_to eq ""
     end
+
+    it "returns a '000' response code" do
+      response = run_auth_capture
+      expect(response.response_code).to eq('000')
+    end
   end
 
   context "on an account with insufficient funds" do
@@ -47,9 +52,14 @@ describe "auth_capture (Sale)" do
       expect(response.message).to match(/insufficient funds/i)
     end
 
-    it "notifies that it is insufficient funds (110?)" do
+    it "notifies that it is insufficient funds" do
       response = run_auth_capture
       expect(response.insufficient_funds?).to eq true
+    end
+
+    it "returns a '110' response code" do
+      response = run_auth_capture
+      expect(response.response_code).to eq('110')
     end
   end
 
@@ -77,6 +87,11 @@ describe "auth_capture (Sale)" do
       response = run_auth_capture
       expect(response.invalid_account_number?).to eq true
     end
+
+    it "returns a '301' response code" do
+      response = run_auth_capture
+      expect(response.response_code).to eq('301')
+    end
   end
 
   context "on an account with misc errors, like pick up card" do
@@ -98,6 +113,11 @@ describe "auth_capture (Sale)" do
       response = run_auth_capture
       expect(response.message).not_to eq nil
       expect(response.message).not_to eq ""
+    end
+
+    it "returns a '303' response code" do
+      response = run_auth_capture
+      expect(response.response_code).to eq('303')
     end
   end
 

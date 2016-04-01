@@ -33,6 +33,10 @@ describe "directly tokenizing card data" do
       )
       expect(auth_response.success?).to eq true
     end
+
+    it "returns an 802 response code" do
+      expect(response.response_code).to eq('802')
+    end
   end
 
   context "when the credit card number is completely invalid" do
@@ -53,6 +57,10 @@ describe "directly tokenizing card data" do
 
     it "returns a human readable message" do
       expect(response.message).to match(/credit card number was invalid/i)
+    end
+
+    it "returns an 820 response code" do
+      expect(response.response_code).to eq('820')
     end
   end
 
@@ -80,6 +88,10 @@ describe "directly tokenizing card data" do
       expect(auth_response.success?).to eq false
       expect(auth_response.expired_card?).to eq true
     end
+
+    it "returns an 802 response code" do
+      expect(response.response_code).to eq('802')
+    end
   end
 
   context "with an account with an invalid account number" do
@@ -105,6 +117,10 @@ describe "directly tokenizing card data" do
       )
       expect(auth_response.success?).to eq false
       expect(auth_response.invalid_account_number?).to eq true
+    end
+
+    it "returns an 802 response code" do
+      expect(response.response_code).to eq('802')
     end
   end
 end

@@ -85,38 +85,6 @@ describe Vantiv::Api::Response do
     end
   end
 
-  describe "#response_code" do
-    let(:code) { "some code" }
-    let(:body) do
-      body_with_params({
-        transaction_response_name => {
-          "response" => code
-        }
-      })
-    end
-
-    it "returns the litle transaction response's code" do
-      set_transaction_response_name
-      expect(response.response_code).to eq(code)
-    end
-  end
-
-  describe "#transaction_id" do
-    let(:transaction_id) { "some transaction_id" }
-    let(:body) do
-      body_with_params({
-        transaction_response_name => {
-          "TransactionID" => transaction_id
-        }
-      })
-    end
-
-    it "returns the litle transaction response's transaction id" do
-      set_transaction_response_name
-      expect(response.transaction_id).to eq(transaction_id)
-    end
-  end
-
   describe "#error_message" do
     context "when configuration leads to API level failure" do
       let(:api_error_message) { "error message" }

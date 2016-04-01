@@ -5,6 +5,7 @@ module Vantiv
         approved: '000',
         insufficient_funds: '110',
         invalid_account_number: '301',
+        pick_up_card: '303',
         expired_card: '305',
         token_not_found: '822'
       }

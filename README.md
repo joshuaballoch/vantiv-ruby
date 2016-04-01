@@ -308,6 +308,7 @@ card.cvv
 card.expiry_month
 card.expiry_year
 card.network
+card.name
 ```
 
 The `TestCard` class does not encompass the complete list of whitelisted cards, though more cards will continue to be added to it. For a complete list & more information on Vantiv's whitelisted cards, please see Vantiv's documentation.

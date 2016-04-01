@@ -44,4 +44,27 @@ describe Vantiv::Api::Request do
       expect(run_api_request.api_level_failure?).to eq true
     end
   end
+
+  context "when Vantiv (conveniently) doesn't send back json" do
+
+    it "retries the original request" do
+      vantiv_responses = [
+        double(
+          code_type: Net::HTTPOK,
+          code: "200",
+          body: ""
+        ),
+        double(
+          code_type: Net::HTTPOK,
+          code: "200",
+          body: {something: "in json"}.to_json
+        )
+      ]
+      allow_any_instance_of(Net::HTTP).to receive(:request) { vantiv_responses.shift }
+      expect{
+        @response = run_api_request
+      }.not_to raise_error
+      expect(@response.body).to eq({"something" => "in json"})
+    end
+  end
 end

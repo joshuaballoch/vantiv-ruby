@@ -15,15 +15,15 @@ module Vantiv
       end
 
       def api_level_failure?
-        !httpok ||
-          # NOTE: this kind of sucks, but at the commit point, the DevHub
-          #   Api sometimes gives 200OK when litle had a parse issue and returns
-          #   'Error validating xml data...' instead of an actual error
-          @body["litleOnlineResponse"]["@message"].match(/error/i)
+        !httpok || litle_response_has_error?
       end
 
       def message
         litle_transaction_response["message"]
+      end
+
+      def error_message
+        api_level_failure? ? api_level_error_message : message
       end
 
       def response_code
@@ -35,6 +35,17 @@ module Vantiv
       end
 
       private
+
+      def litle_response_has_error?
+        # NOTE: this kind of sucks, but at the commit point, the DevHub
+        #   Api sometimes gives 200OK when litle had a parse issue and returns
+        #   'Error validating xml data...' instead of an actual error
+        !!@body["litleOnlineResponse"]["@message"].match(/error/i)
+      end
+
+      def api_level_error_message
+        body["errormsg"]
+      end
 
       attr_reader :transaction_response_name
 

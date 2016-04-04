@@ -50,6 +50,10 @@ describe "promoting a temporary token to a permanent token" do
       expect(response.transaction_id).not_to eq nil
       expect(response.transaction_id).not_to eq ""
     end
+
+    it "returns an 802 response code" do
+      expect(response.response_code).to eq('802')
+    end
   end
 
   context "with a blank temporary token" do
@@ -100,6 +104,10 @@ describe "promoting a temporary token to a permanent token" do
       expect(auth_response.success?).to eq false
       expect(auth_response.invalid_account_number?).to eq true
     end
+
+    it "returns an 802 response code" do
+      expect(response.response_code).to eq('802')
+    end
   end
 
   context "with an invalid temporary token" do
@@ -125,6 +133,10 @@ describe "promoting a temporary token to a permanent token" do
     it "returns a transaction id" do
       expect(response.transaction_id).not_to eq nil
       expect(response.transaction_id).not_to eq ""
+    end
+
+    it "returns an 877 response code" do
+      expect(response.response_code).to eq('877')
     end
   end
 end

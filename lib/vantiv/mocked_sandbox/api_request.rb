@@ -1,6 +1,7 @@
 module Vantiv
   module MockedSandbox
     class ApiRequest
+      class EndpointNotMocked < StandardError; end
       class FixtureNotFound < StandardError; end
 
       def self.run(endpoint:, body:)
@@ -17,6 +18,8 @@ module Vantiv
           if direct_post?
             load_fixture("tokenize_by_direct_post", card_number)
           end
+        else
+          raise EndpointNotMocked.new("#{endpoint} is not mocked!")
         end
         {
           httpok: fixture["httpok"],

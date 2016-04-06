@@ -6,7 +6,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'vantiv-ruby'
+gem 'vantiv'
 ```
 
 And then execute:
@@ -15,7 +15,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install vantiv-ruby
+    $ gem install vantiv
 
 ## Configuration
 
@@ -53,7 +53,7 @@ Navigate to your application's page in DevHub's developer portal (apideveloper.v
 
 ## Usage
 
-The vantiv-ruby gem provides a simple ruby client for interacting with Vantiv's DevHub API. This API wraps their Litle/XML API and provides an API that uses json. This gem provides a way for a merchant to:
+The vantiv gem provides a simple ruby client for interacting with Vantiv's DevHub API. This API wraps their Litle/XML API and provides an API that uses json. This gem provides a way for a merchant to:
 
 1. Use Vantiv's eProtect feature to tokenize sensitive card information directly to Vantiv's servers.
 2. Run the following transactions on customers' accounts:

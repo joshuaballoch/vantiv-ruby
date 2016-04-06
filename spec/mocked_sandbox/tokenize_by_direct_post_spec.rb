@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe "mocked API requests to tokenize_by_direct_post" do
-  let(:card) { Vantiv::TestCard.valid_account }
-
   def run_mocked_response
     Vantiv::MockedSandbox.enable_self_mocked_requests!
     response = Vantiv.tokenize_by_direct_post(
@@ -28,6 +26,8 @@ describe "mocked API requests to tokenize_by_direct_post" do
   after { Vantiv::MockedSandbox.disable_self_mocked_requests! }
 
   Vantiv::TestCard.all.each do |test_card|
+    let(:card) { test_card }
+
     context "with a #{test_card.name}" do
       (
         Vantiv::Api::TokenizationResponse.instance_methods(false) +

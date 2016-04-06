@@ -1,6 +1,7 @@
 module Vantiv
   module MockedSandbox
     class ApiRequest
+      class EndpointNotMocked < StandardError; end
       class FixtureNotFound < StandardError; end
 
       def self.run(endpoint:, body:)
@@ -17,6 +18,10 @@ module Vantiv
           if direct_post?
             load_fixture("tokenize_by_direct_post", card_number)
           end
+        elsif endpoint == Api::Endpoints::SALE
+          load_fixture("auth_capture", card_number_from_payment_account_id)
+        else
+          raise EndpointNotMocked.new("#{endpoint} is not mocked!")
         end
         {
           httpok: fixture["httpok"],
@@ -35,6 +40,12 @@ module Vantiv
 
       def card_number
         request_body["Card"]["AccountNumber"]
+      end
+
+      def card_number_from_payment_account_id
+        TestCard.find_by_payment_account_id(
+          request_body["PaymentAccount"]["PaymentAccountID"]
+        ).card_number
       end
 
       def load_fixture(api_method, card_number)

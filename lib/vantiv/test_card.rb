@@ -76,7 +76,15 @@ module Vantiv
         card_data[:attrs][:card_number] == card_number
       end
       raise CardNotFound.new("No card with account number #{card_number}") unless card
-      new(card[:attrs])
+      new(card[:attrs].merge(name: card[:access_method_name]))
+    end
+
+    def self.find_by_payment_account_id(payment_account_id)
+      card = CARDS.find do |card_data|
+        card_data[:attrs][:mocked_sandbox_payment_account_id] == payment_account_id
+      end
+      raise CardNotFound.new("No card with mocked sandbox payment account id #{payment_account_id}") unless card
+      new(card[:attrs].merge(name: card[:access_method_name]))
     end
 
     attr_reader :card_number, :expiry_month, :expiry_year, :cvv, :mocked_sandbox_payment_account_id, :network, :name
@@ -89,6 +97,22 @@ module Vantiv
       @mocked_sandbox_payment_account_id = mocked_sandbox_payment_account_id
       @network = network
       @name = name
+    end
+
+    def ==(other_object)
+      if other_object.is_a?(TestCard)
+        name == other_object.name
+      else
+        super
+      end
+    end
+
+    def !=(other_object)
+      !(self == other_object)
+    end
+
+    def tokenizable?
+      self != TestCard.invalid_card_number
     end
   end
 end

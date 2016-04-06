@@ -47,4 +47,13 @@ describe "toggling mocked API requests" do
       config.environment = Vantiv::Environment::CERTIFICATION
     end
   end
+
+  it "raises an error if endpoint is not mocked" do
+    expect{
+      Vantiv::MockedSandbox::ApiRequest.run(
+        endpoint: "/not/a/mocked/endpoint",
+        body: {}.to_json
+      )
+    }.to raise_error(/not mocked/i)
+  end
 end

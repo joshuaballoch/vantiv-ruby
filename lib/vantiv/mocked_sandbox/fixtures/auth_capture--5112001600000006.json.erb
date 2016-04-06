@@ -1,0 +1,26 @@
+{
+  "httpok": true,
+  "http_response_code": "200",
+  "response_body": {
+    "litleOnlineResponse": {
+      "@version": "10.2",
+      "@response": "0",
+      "@message": "Valid Format",
+      "saleResponse": {
+        "@id": "25f3df1cbed24704f371fe8d",
+        "@reportGroup": "<%= Vantiv.default_report_group %>",
+        "@customerId": "not-dynamic-cust-id",
+        "orderId": "not-dynamic-order-id",
+        "response": "301",
+        "responseTime": "<%= Time.now.strftime('%FT%T') %>",
+        "postDate": "<%= Time.now.strftime('%F') %>",
+        "message": "Invalid Account Number",
+        "fraudResult": {
+          "avsResult": "00"
+        },
+        "TransactionID": "<%= rand(10**17) %>"
+      }
+    },
+    "RequestID": "0d7a1748-3521-42b2-d647-02dfdf3cf52d"
+  }
+}

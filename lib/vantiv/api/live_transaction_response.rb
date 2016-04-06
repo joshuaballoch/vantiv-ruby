@@ -7,7 +7,8 @@ module Vantiv
         invalid_account_number: '301',
         pick_up_card: '303',
         expired_card: '305',
-        token_not_found: '822'
+        token_not_found: '822',
+        token_invalid: '823'
       }
 
       LIVE_TRANSACTION_RESPONSE_NAMES = {

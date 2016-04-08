@@ -1,6 +1,29 @@
 require 'spec_helper'
 
 describe Vantiv::Api::RequestBody do
+  describe ".for_direct_post_tokenization" do
+    let(:card_number) { 1234 }
+    let(:expiry_month) { 10 }
+    let(:expiry_year) { 2018 }
+    let(:cvv) { 222 }
+
+    subject(:request_body) do
+      Vantiv::Api::RequestBody.for_direct_post_tokenization(
+        card_number: card_number,
+        expiry_month: expiry_month,
+        expiry_year: expiry_year,
+        cvv: cvv
+      )
+    end
+
+    it "includes stringified versions of card params" do
+      expect(request_body["Card"]["AccountNumber"]).to eq(card_number.to_s)
+      expect(request_body["Card"]["ExpirationMonth"]).to eq(expiry_month.to_s)
+      expect(request_body["Card"]["ExpirationYear"]).to eq(expiry_year.to_s)
+      expect(request_body["Card"]["CVV"]).to eq(cvv.to_s)
+    end
+  end
+
   describe ".for_tokenization" do
     subject(:request_body) do
       Vantiv::Api::RequestBody.for_tokenization(

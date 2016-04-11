@@ -53,7 +53,7 @@ module Vantiv
         RequestBodyGenerator.run(
           {
             "Card" => {
-              "AccountNumber" => card_number.to_s,
+              "AccountNumber" => card_number.to_s.gsub(/\D*/, ""),
               "ExpirationMonth" => expiry_month.to_s,
               "ExpirationYear" => expiry_year.to_s,
               "CVV" => cvv.to_s

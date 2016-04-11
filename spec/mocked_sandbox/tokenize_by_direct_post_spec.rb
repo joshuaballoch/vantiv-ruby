@@ -51,24 +51,4 @@ describe "mocked API requests to tokenize_by_direct_post" do
       end
     end
   end
-
-  context "using a non-whitelisted card" do
-    let(:card) do
-      Vantiv::TestCard.new(
-        card_number: "4581537455985878",
-        expiry_month: "08",
-        expiry_year: "18",
-        mocked_sandbox_payment_account_id: nil,
-        network: nil,
-        cvv: "123",
-        name: "bobbybil"
-      )
-    end
-
-    it "raises an error showing the user that the card is not whitelisted" do
-      expect{
-        mocked_response
-      }.to raise_error(/Fixture not found/)
-    end
-  end
 end

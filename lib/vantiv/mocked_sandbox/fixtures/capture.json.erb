@@ -6,15 +6,16 @@
       "@version": "10.2",
       "@response": "0",
       "@message": "Valid Format",
-      "registerTokenResponse": {
-        "@id": "4c4141c81f06319186454db6",
+      "captureResponse": {
+        "@id": "2a265fdb9a2b821d62ad4265",
         "@reportGroup": "<%= Vantiv.default_report_group %>",
-        "response": "820",
+        "response": "001",
         "responseTime": "<%= Time.now.strftime('%FT%T') %>",
-        "message": "Credit card number was invalid",
+        "postDate": "<%= Time.now.strftime('%F') %>",
+        "message": "Transaction Received",
         "TransactionID": "<%= rand(10**17) %>"
       }
     },
-    "RequestID": "45459ca7-8bc9-414e-b002-eaaeb139ce6e"
+    "RequestID": "4112af2e-320c-4f6d-e193-dfa733b329e8"
   }
 }

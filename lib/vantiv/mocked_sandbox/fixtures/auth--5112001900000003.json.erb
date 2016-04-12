@@ -1,0 +1,26 @@
+{
+  "httpok": true,
+  "http_response_code": "200",
+  "response_body": {
+    "litleOnlineResponse": {
+      "@version": "10.2",
+      "@response": "0",
+      "@message": "Valid Format",
+      "authorizationResponse": {
+        "@id": "bffbf3e3a1b7006a1610fbc4",
+        "@reportGroup": "<%= Vantiv.default_report_group %>",
+        "@customerId": "not-dynamic-cust-id",
+        "orderId": "not-dynamic-order-id",
+        "response": "305",
+        "responseTime": "<%= Time.now.strftime('%FT%T') %>",
+        "postDate": "<%= Time.now.strftime('%F') %>",
+        "message": "Expired Card",
+        "fraudResult": {
+          "avsResult": "00"
+        },
+        "TransactionID": "<%= rand(10**17) %>"
+      }
+    },
+    "RequestID": "e6401ee3-e9f0-469d-f3d1-15942d410a1f"
+  }
+}

@@ -20,6 +20,18 @@ module Vantiv
           end
         elsif endpoint == Api::Endpoints::SALE
           load_fixture("auth_capture", card_number_from_payment_account_id)
+        elsif endpoint == Api::Endpoints::AUTHORIZATION
+          load_fixture("auth", card_number_from_payment_account_id)
+        elsif endpoint == Api::Endpoints::CAPTURE
+          load_fixture("capture")
+        elsif endpoint == Api::Endpoints::AUTH_REVERSAL
+          load_fixture("auth_reversal")
+        elsif endpoint == Api::Endpoints::CREDIT
+          load_fixture("credit")
+        elsif endpoint == Api::Endpoints::RETURN
+          load_fixture("refund", card_number_from_payment_account_id)
+        elsif endpoint == Api::Endpoints::VOID
+          load_fixture("void")
         else
           raise EndpointNotMocked.new("#{endpoint} is not mocked!")
         end
@@ -48,9 +60,10 @@ module Vantiv
         ).card_number
       end
 
-      def load_fixture(api_method, card_number)
+      def load_fixture(api_method, card_number = nil)
+        fixture_file_name = card_number ? "#{api_method}--#{card_number}" : api_method
         begin
-          self.fixture = File.open("#{MockedSandbox.fixtures_directory}#{api_method}--#{card_number}.json.erb", 'r') do |f|
+          self.fixture = File.open("#{MockedSandbox.fixtures_directory}#{fixture_file_name}.json.erb", 'r') do |f|
             raw_fixture = JSON.parse(f.read)
             raw_fixture["response_body"] = raw_fixture["response_body"].to_json
             raw_fixture

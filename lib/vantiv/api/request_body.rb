@@ -89,7 +89,7 @@ module Vantiv
       def self.transaction_element(amount:, customer_id:, order_id:)
         {
           "Transaction" => {
-            "ReferenceNumber" => order_id,
+            "ReferenceNumber" => order_id.to_s,
             "TransactionAmount" => '%.2f' % (amount / 100.0),
             "OrderSource" => Vantiv.order_source,
             "CustomerID" => customer_id,

@@ -101,6 +101,16 @@ describe Vantiv::Api::RequestBody do
     it "includes the PaymentAccountID" do
       expect(request_body["PaymentAccount"]["PaymentAccountID"]).to eq "paymentacct123"
     end
+
+    it "casts order id to string" do
+      body = Vantiv::Api::RequestBody.for_auth_or_sale(
+        amount: 4224,
+        customer_id: "extid123",
+        payment_account_id: "paymentacct123",
+        order_id: 123
+      )
+      expect(body["Transaction"]["ReferenceNumber"]).to eq "123"
+    end
   end
 
   describe ".transaction_element" do

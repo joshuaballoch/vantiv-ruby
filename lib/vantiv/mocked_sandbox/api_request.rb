@@ -65,7 +65,11 @@ module Vantiv
         begin
           self.fixture = File.open("#{MockedSandbox.fixtures_directory}#{fixture_file_name}.json.erb", 'r') do |f|
             raw_fixture = JSON.parse(f.read)
-            raw_fixture["response_body"] = raw_fixture["response_body"].to_json
+            # Prevent rails overridden version of to_json from encoding erb sepcial characters
+            raw_fixture["response_body"] = JSON::Ext::Generator::GeneratorMethods::Hash
+              .instance_method(:to_json)
+              .bind(raw_fixture["response_body"])
+              .call
             raw_fixture
           end
         rescue Errno::ENOENT

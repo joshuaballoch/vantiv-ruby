@@ -1,4 +1,5 @@
 require 'spec_helper'
+include TestHelpers
 
 describe "mocked API requests to refund" do
   let(:live_sandbox_payment_account_id) do
@@ -44,13 +45,22 @@ describe "mocked API requests to refund" do
     let(:card) { test_card }
 
     context "with a #{test_card.name}" do
+      it "the mocked response's public methods return the same as the live one" do
       (
         Vantiv::Api::TiedTransactionResponse.instance_methods(false) +
         Vantiv::Api::Response.instance_methods(false) -
         [:payment_account_id, :body, :load, :request_id, :transaction_id]
       ).each do |method_name|
-        it "the mocked response returns the same as the live one for ##{method_name}" do
-          expect(mocked_response.send(method_name)).to eq live_response.send(method_name)
+          live_response_value = live_response.send(method_name)
+          mocked_response_value = mocked_response.send(method_name)
+
+          expect(mocked_response_value).to eq(live_response_value),
+            error_message_for_mocked_api_failure(
+              method_name: method_name,
+              expected_value: live_response_value,
+              got_value: mocked_response_value,
+              live_response: live_response
+            )
         end
       end
 

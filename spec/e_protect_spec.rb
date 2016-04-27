@@ -41,7 +41,9 @@ describe "promoting a temporary token to a permanent token" do
         amount: 10000,
         payment_account_id: payment_account_id,
         customer_id: "doesntmatter",
-        order_id: "orderblah"
+        order_id: "orderblah",
+        expiry_month: '01',
+        expiry_year: '16'
       )
       expect(auth_response.success?).to eq true
     end
@@ -99,7 +101,9 @@ describe "promoting a temporary token to a permanent token" do
         amount: 10000,
         payment_account_id: payment_account_id,
         customer_id: "doesntmatter",
-        order_id: "orderblah"
+        order_id: "orderblah",
+        expiry_month: '01',
+        expiry_year: '16'
       )
       expect(auth_response.success?).to eq false
       expect(auth_response.invalid_account_number?).to eq true

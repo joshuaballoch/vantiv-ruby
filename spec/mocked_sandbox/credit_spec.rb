@@ -25,7 +25,9 @@ describe "mocked API requests to credit" do
       amount: amount,
       payment_account_id: live_sandbox_payment_account_id,
       customer_id: customer_id,
-      order_id: order_id
+      order_id: order_id,
+      expiry_month: card.expiry_month,
+      expiry_year: card.expiry_year
     ).transaction_id
   end
 

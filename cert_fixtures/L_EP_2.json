@@ -9,7 +9,9 @@
       "PartialApprovedFlag": "false"
     },
     "Card": {
-      "PaypageRegistrationID": "${eProtect.5435101234510196}"
+      "PaypageRegistrationID": "${eProtect.5435101234510196}",
+      "ExpirationMonth": "01",
+      "ExpirationYear": "16"
     }
   }
 }

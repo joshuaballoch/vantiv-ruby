@@ -2,18 +2,21 @@ require 'spec_helper'
 
 describe "auth_capture (Sale)" do
   let(:customer_external_id) { "1234" }
+  let(:payment_account_id) { test_account.payment_account_id }
 
   subject(:run_auth_capture) do
     Vantiv.auth_capture(
       amount: 10000,
       payment_account_id: payment_account_id,
       customer_id: customer_external_id,
-      order_id: "SomeOrder123"
+      order_id: "SomeOrder123",
+      expiry_month: test_account.expiry_month,
+      expiry_year: test_account.expiry_year
     )
   end
 
   context "on a valid account" do
-    let(:payment_account_id) { Vantiv::TestAccount.valid_account.payment_account_id }
+    let(:test_account) { Vantiv::TestAccount.valid_account }
 
     it "returns success response" do
       response = run_auth_capture
@@ -33,7 +36,7 @@ describe "auth_capture (Sale)" do
   end
 
   context "on an account with insufficient funds" do
-    let(:payment_account_id) { Vantiv::TestAccount.insufficient_funds.payment_account_id }
+    let(:test_account) { Vantiv::TestAccount.insufficient_funds }
 
     it "returns a failure response" do
       response = run_auth_capture
@@ -64,7 +67,7 @@ describe "auth_capture (Sale)" do
   end
 
   context "on an account with an invalid account number" do
-    let(:payment_account_id) { Vantiv::TestAccount.invalid_account_number.payment_account_id }
+    let(:test_account) { Vantiv::TestAccount.invalid_account_number }
 
     it "returns a failure response" do
       response = run_auth_capture
@@ -95,7 +98,7 @@ describe "auth_capture (Sale)" do
   end
 
   context "on an account with misc errors, like pick up card" do
-    let(:payment_account_id) { Vantiv::TestAccount.pick_up_card.payment_account_id }
+    let(:test_account) { Vantiv::TestAccount.pick_up_card }
 
     it "returns a failure response" do
       response = run_auth_capture
@@ -122,7 +125,7 @@ describe "auth_capture (Sale)" do
   end
 
   context "when API level failure occurs" do
-    let(:payment_account_id) { Vantiv::TestAccount.valid_account.payment_account_id }
+    let(:test_account) { Vantiv::TestAccount.valid_account }
 
     before do
       @license_id = Vantiv.license_id

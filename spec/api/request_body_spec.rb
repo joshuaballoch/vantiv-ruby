@@ -18,8 +18,8 @@ describe Vantiv::Api::RequestBody do
 
     it "includes stringified versions of card params" do
       expect(request_body["Card"]["AccountNumber"]).to eq(card_number.to_s)
-      expect(request_body["Card"]["ExpirationMonth"]).to eq(expiry_month.to_s)
-      expect(request_body["Card"]["ExpirationYear"]).to eq(expiry_year.to_s)
+      expect(request_body["Card"]["ExpirationMonth"]).to eq("10")
+      expect(request_body["Card"]["ExpirationYear"]).to eq("18")
       expect(request_body["Card"]["CVV"]).to eq(cvv.to_s)
     end
 
@@ -90,7 +90,9 @@ describe Vantiv::Api::RequestBody do
         amount: 4224,
         customer_id: "extid123",
         payment_account_id: "paymentacct123",
-        order_id: "SomeOrder123"
+        order_id: "SomeOrder123",
+        expiry_month: "8",
+        expiry_year: "2018"
       )
     end
 
@@ -107,9 +109,16 @@ describe Vantiv::Api::RequestBody do
         amount: 4224,
         customer_id: "extid123",
         payment_account_id: "paymentacct123",
-        order_id: 123
+        order_id: 123,
+        expiry_month: "12",
+        expiry_year: "2099"
       )
       expect(body["Transaction"]["ReferenceNumber"]).to eq "123"
+    end
+
+    it "includes expiry data" do
+      expect(request_body["Card"]["ExpirationMonth"]).to eq "08"
+      expect(request_body["Card"]["ExpirationYear"]).to eq "18"
     end
   end
 
@@ -145,6 +154,25 @@ describe Vantiv::Api::RequestBody do
 
     it "includes the merchant reference number for the order (required by Vantiv)" do
       expect(transaction_element["Transaction"]["ReferenceNumber"]).to eq "some-order"
+    end
+  end
+
+  describe ".format_expiry" do
+    it "returns a two digit value if a one digit month is passed" do
+      expect(Vantiv::Api::RequestBody.format_expiry("8")).to eq "08"
+    end
+
+    it "returns a two digit value if two digit value is passed" do
+      expect(Vantiv::Api::RequestBody.format_expiry("08")).to eq "08"
+    end
+
+    it "returns a string if a number is passed" do
+      expect(Vantiv::Api::RequestBody.format_expiry(8)).to eq "08"
+    end
+
+    it "returns the last two digits if a four digit year is passed" do
+      expect(Vantiv::Api::RequestBody.format_expiry("2019")).to eq "19"
+      expect(Vantiv::Api::RequestBody.format_expiry(2019)).to eq "19"
     end
   end
 end

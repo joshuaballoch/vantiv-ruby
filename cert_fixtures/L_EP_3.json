@@ -2,7 +2,9 @@
   "endpoint": "TOKENIZATION",
   "body": {
     "Card": {
-      "PaypageRegistrationID": "${eProtect.6011010140000004}"
+      "PaypageRegistrationID": "${eProtect.6011010140000004}",
+      "ExpirationMonth": "01",
+      "ExpirationYear": "16"
     },
     "Transaction": {
       "CustomerID": "123"

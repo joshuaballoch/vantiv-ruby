@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe "processing credits (refunds) on prior transactions" do
-  let(:payment_account_id) { Vantiv::TestAccount.valid_account.payment_account_id }
+  let(:test_account) { Vantiv::TestAccount.valid_account }
+  let(:payment_account_id) { test_account.payment_account_id }
   let(:customer_id) { "cust-id-123" }
   let(:order_id) { "order-#{rand(10000)}" }
 
@@ -18,7 +19,9 @@ describe "processing credits (refunds) on prior transactions" do
         amount: 14100,
         customer_id: customer_id,
         order_id: order_id,
-        payment_account_id: payment_account_id
+        payment_account_id: payment_account_id,
+        expiry_month: test_account.expiry_month,
+        expiry_year: test_account.expiry_year
       )
       Vantiv.capture(transaction_id: auth_response.transaction_id)
     end
@@ -51,7 +54,9 @@ describe "processing credits (refunds) on prior transactions" do
         amount: 14100,
         customer_id: customer_id,
         order_id: order_id,
-        payment_account_id: payment_account_id
+        payment_account_id: payment_account_id,
+        expiry_month: test_account.expiry_month,
+        expiry_year: test_account.expiry_year
       )
     end
 

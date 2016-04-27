@@ -10,6 +10,10 @@
     },
     "PaymentAccount": {
       "PaymentAccountID": "#{L_EP_1.litleOnlineResponse.authorizationResponse.tokenResponse.PaymentAccountID}"
+    },
+    "Card": {
+      "ExpirationMonth": "01",
+      "ExpirationYear": "16"
     }
   }
 }

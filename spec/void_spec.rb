@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe "processing voids" do
-  let(:payment_account_id) { Vantiv::TestAccount.valid_account.payment_account_id }
+  let(:test_account) { Vantiv::TestAccount.valid_account }
+  let(:payment_account_id) { test_account.payment_account_id }
   let(:customer_id) { "customer-#{rand(10000)}" }
   let(:order_id) { "order-#{rand(10000)}" }
 
@@ -15,7 +16,9 @@ describe "processing voids" do
         amount: 81800,
         customer_id: customer_id,
         order_id: order_id,
-        payment_account_id: payment_account_id
+        payment_account_id: payment_account_id,
+        expiry_month: test_account.expiry_month,
+        expiry_year: test_account.expiry_year
       )
       Vantiv.capture(transaction_id: auth.transaction_id)
     end
@@ -42,7 +45,9 @@ describe "processing voids" do
         amount: 81800,
         customer_id: customer_id,
         order_id: order_id,
-        payment_account_id: payment_account_id
+        payment_account_id: payment_account_id,
+        expiry_month: test_account.expiry_month,
+        expiry_year: test_account.expiry_year
       )
       Vantiv.credit(transaction_id: sale.transaction_id, amount: 5)
     end
@@ -69,7 +74,9 @@ describe "processing voids" do
         amount: 81800,
         customer_id: customer_id,
         order_id: order_id,
-        payment_account_id: payment_account_id
+        payment_account_id: payment_account_id,
+        expiry_month: test_account.expiry_month,
+        expiry_year: test_account.expiry_year
       )
     end
 
@@ -95,7 +102,9 @@ describe "processing voids" do
         amount: 81800,
         customer_id: customer_id,
         order_id: order_id,
-        payment_account_id: payment_account_id
+        payment_account_id: payment_account_id,
+        expiry_month: test_account.expiry_month,
+        expiry_year: test_account.expiry_year
       )
     end
 

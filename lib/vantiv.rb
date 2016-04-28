@@ -37,12 +37,14 @@ module Vantiv
     ).run
   end
 
-  def self.auth(amount:, payment_account_id:, customer_id:, order_id:)
+  def self.auth(amount:, payment_account_id:, customer_id:, order_id:, expiry_month:, expiry_year:)
     body = Api::RequestBody.for_auth_or_sale(
       amount: amount,
       order_id: order_id,
       customer_id: customer_id,
-      payment_account_id: payment_account_id
+      payment_account_id: payment_account_id,
+      expiry_month: expiry_month,
+      expiry_year: expiry_year
     )
     Api::Request.new(
       endpoint: Api::Endpoints::AUTHORIZATION,
@@ -77,12 +79,14 @@ module Vantiv
     ).run
   end
 
-  def self.auth_capture(amount:, payment_account_id:, customer_id:, order_id:)
+  def self.auth_capture(amount:, payment_account_id:, customer_id:, order_id:, expiry_month:, expiry_year:)
     body = Api::RequestBody.for_auth_or_sale(
       amount: amount,
       order_id: order_id,
       customer_id: customer_id,
-      payment_account_id: payment_account_id
+      payment_account_id: payment_account_id,
+      expiry_month: expiry_month,
+      expiry_year: expiry_year
     )
     Api::Request.new(
       endpoint: Api::Endpoints::SALE,
@@ -105,12 +109,14 @@ module Vantiv
     ).run
   end
 
-  def self.refund(amount:, payment_account_id:, customer_id:, order_id:)
+  def self.refund(amount:, payment_account_id:, customer_id:, order_id:, expiry_month:, expiry_year:)
     body = Api::RequestBody.for_return(
       amount: amount,
       customer_id: customer_id,
       order_id: order_id,
-      payment_account_id: payment_account_id
+      payment_account_id: payment_account_id,
+      expiry_month: expiry_month,
+      expiry_year: expiry_year
     )
     Api::Request.new(
       endpoint: Api::Endpoints::RETURN,

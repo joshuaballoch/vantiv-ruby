@@ -1,13 +1,16 @@
 require 'spec_helper'
 
 describe "capturing authorizations" do
-  let(:payment_account_id) { Vantiv::TestAccount.valid_account.payment_account_id }
+  let(:test_account) { Vantiv::TestAccount.valid_account }
+  let(:payment_account_id) { test_account.payment_account_id }
   let(:transaction_id) do
     Vantiv.auth(
       amount: 10000,
       payment_account_id: payment_account_id,
       customer_id: "Anything-#{rand(10000)}",
-      order_id: "AnyOrder#{rand(100000)}"
+      order_id: "AnyOrder#{rand(100000)}",
+      expiry_month: test_account.expiry_month,
+      expiry_year: test_account.expiry_year
     ).transaction_id
   end
 

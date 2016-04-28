@@ -11,6 +11,7 @@ Vantiv.configure do |config|
   config.license_id = ENV["LICENSE_ID"]
   config.acceptor_id = ENV["ACCEPTOR_ID"]
   config.paypage_id = ENV["PAYPAGE_ID"]
+  config.environment = Vantiv::Environment::CERTIFICATION
 
   config.default_report_group = '1'
 end

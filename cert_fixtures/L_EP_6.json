@@ -9,7 +9,9 @@
       "PartialApprovedFlag": "false"
     },
     "Card": {
-      "PaypageRegistrationID": "cDZJcmd1VjNlYXNaSlRMTGpocVZQY1NWVXE4ZW5UTko4NU9KK3p1L1p1Vzg4YzVPQVlSUHNITG1JN2I0NzlyTg=="
+      "PaypageRegistrationID": "cDZJcmd1VjNlYXNaSlRMTGpocVZQY1NWVXE4ZW5UTko4NU9KK3p1L1p1Vzg4YzVPQVlSUHNITG1JN2I0NzlyTg==",
+      "ExpirationMonth": "01",
+      "ExpirationYear": "16"
     }
   }
 }

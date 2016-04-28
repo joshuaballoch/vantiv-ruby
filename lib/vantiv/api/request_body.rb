@@ -1,12 +1,16 @@
 module Vantiv
   module Api
     module RequestBody
-      def self.for_auth_or_sale(amount:, customer_id:, order_id:, payment_account_id:)
+      def self.for_auth_or_sale(amount:, customer_id:, order_id:, payment_account_id:, expiry_month:, expiry_year:)
         RequestBodyGenerator.run(
           transaction_element(
             amount: amount,
             order_id: order_id,
             customer_id: customer_id
+          ),
+          card_element_for_live_transactions(
+            expiry_month: expiry_month,
+            expiry_year: expiry_year
           ),
           payment_account_element(payment_account_id: payment_account_id)
         )
@@ -30,7 +34,7 @@ module Vantiv
         )
       end
 
-      def self.for_return(amount:, customer_id:, order_id:, payment_account_id:)
+      def self.for_return(amount:, customer_id:, order_id:, payment_account_id:, expiry_month:, expiry_year:)
         transaction = transaction_element(
           amount: amount,
           order_id: order_id,
@@ -39,6 +43,10 @@ module Vantiv
         transaction["Transaction"].delete("PartialApprovedFlag")
         RequestBodyGenerator.run(
           transaction,
+          card_element_for_live_transactions(
+            expiry_month: expiry_month,
+            expiry_year: expiry_year
+          ),
           payment_account_element(payment_account_id: payment_account_id)
         )
       end
@@ -54,8 +62,8 @@ module Vantiv
           {
             "Card" => {
               "AccountNumber" => card_number.to_s.gsub(/\D*/, ""),
-              "ExpirationMonth" => expiry_month.to_s,
-              "ExpirationYear" => expiry_year.to_s,
+              "ExpirationMonth" => format_expiry(expiry_month),
+              "ExpirationYear" => format_expiry(expiry_year),
               "CVV" => cvv.to_s
             }
           }
@@ -70,6 +78,15 @@ module Vantiv
         {
           "Card" => {
             "PaypageRegistrationID" => paypage_registration_id
+          }
+        }
+      end
+
+      def self.card_element_for_live_transactions(expiry_month:, expiry_year:)
+        {
+          "Card" => {
+            "ExpirationMonth" => format_expiry(expiry_month),
+            "ExpirationYear" => format_expiry(expiry_year)
           }
         }
       end
@@ -105,7 +122,10 @@ module Vantiv
           }
         }
       end
-    end
 
+      def self.format_expiry(raw_value)
+        raw_value.to_s.reverse[0..1].reverse.rjust(2, "0")
+      end
+    end
   end
 end

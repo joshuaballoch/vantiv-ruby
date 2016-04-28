@@ -22,7 +22,9 @@ describe "mocked API requests to auth_capture" do
       amount: amount,
       payment_account_id: payment_account_id,
       customer_id: customer_id,
-      order_id: order_id
+      order_id: order_id,
+      expiry_month: card.expiry_month,
+      expiry_year: card.expiry_year
     )
     Vantiv::MockedSandbox.disable_self_mocked_requests!
     response
@@ -34,7 +36,9 @@ describe "mocked API requests to auth_capture" do
       amount: amount,
       payment_account_id: live_sandbox_payment_account_id,
       customer_id: customer_id,
-      order_id: order_id
+      order_id: order_id,
+      expiry_month: card.expiry_month,
+      expiry_year: card.expiry_year
     )
   end
 

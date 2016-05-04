@@ -22,6 +22,10 @@ describe "directly tokenizing card data" do
       expect(response.payment_account_id).not_to eq ""
     end
 
+    it "returns the correct card_type" do
+      expect(response.card_type).to eq "VI"
+    end
+
     it "enables using the payment account id for subsequent transactions" do
       payment_account_id = response.payment_account_id
 
@@ -51,6 +55,10 @@ describe "directly tokenizing card data" do
 
     it "does not return a payment account id" do
       expect(response.payment_account_id).to eq nil
+    end
+
+    it "does not return a card_type" do
+      expect(response.card_type).to eq nil
     end
 
     it "reveals that the card number was invalid" do

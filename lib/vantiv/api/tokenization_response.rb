@@ -26,6 +26,10 @@ module Vantiv
         success? ? litle_transaction_response["PaymentAccountID"] : nil
       end
 
+      def card_type
+        success? ? litle_transaction_response["Type"] : nil
+      end
+
       def invalid_card_number?
         response_code == RESPONSE_CODES[:credit_card_number_invalid]
       end

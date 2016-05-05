@@ -181,7 +181,23 @@ In the server, once a temporary token has been received, a permanent token can b
 Vantiv.tokenize(temporary_token: 'temporary-token-here')
 ```
 
-This will return a TokenizationResponse object, which responds to `success?` and `failure?`, and which returns the `payment_account_id` retrieved from Vantiv. The merchant should save this token for use on future transactions.
+This will return a TokenizationResponse object, which responds to `success?` and `failure?`, and which returns a `card_type` and the `payment_account_id` retrieved from Vantiv. The merchant should save this token for use on future transactions.
+
+The `card_type` corresponds with the type of account that was used in the transaction and has the following enumerations:
+
+| Enumeration | Description |
+| ------------- | ------------- |
+| MC | MasterCard |
+| VI | Visa |
+| AX | American Express |
+| DC | Diner’s Club |
+| DI | Discover |
+| PP | PayPal |
+| JC | JCB (Japanese Credit Bureau) |
+| BL | PayPal Credit |
+| EC | eCheck |
+| GC | Gift Card |
+| “” | (empty) Card type unknown or undefined |
 
 NOTES: There are a few gotchas with tokenization, namely:
 

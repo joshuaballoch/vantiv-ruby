@@ -48,6 +48,10 @@ describe "promoting a temporary token to a permanent token" do
       expect(auth_response.success?).to eq true
     end
 
+    it "returns the correct card_type" do
+      expect(response.card_type).to eq "VI"
+    end
+
     it "returns a transaction id" do
       expect(response.transaction_id).not_to eq nil
       expect(response.transaction_id).not_to eq ""
@@ -126,6 +130,10 @@ describe "promoting a temporary token to a permanent token" do
 
     it "does not return a permanent token" do
       expect(response.payment_account_id).to eq nil
+    end
+
+    it "does not return a card_type" do
+      expect(response.card_type).to eq nil
     end
 
     it "returns a corresponding response code" do

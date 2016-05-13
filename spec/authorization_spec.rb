@@ -10,8 +10,8 @@ describe "auth" do
       payment_account_id: payment_account_id,
       customer_id: customer_external_id,
       order_id: "SomeOrder123",
-      expiry_month: "01",
-      expiry_year: "16"
+      expiry_month: test_account.expiry_month,
+      expiry_year: test_account.expiry_year
     )
   end
 

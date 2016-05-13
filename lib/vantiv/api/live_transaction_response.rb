@@ -9,7 +9,7 @@ module Vantiv
         expired_card: '305',
         token_not_found: '822',
         token_invalid: '823'
-      }
+      }.freeze
 
       LIVE_TRANSACTION_RESPONSE_NAMES = {
         auth: "authorizationResponse",

@@ -2,17 +2,17 @@ module Vantiv
   module Api
     class TokenizationResponse < Api::Response
       RESPONSE_CODES = {
-        account_successfully_registered: "801",
-        account_already_registered: "802",
-        credit_card_number_invalid: "820",
-        merchant_not_authorized_for_tokens: "821",
-        token_not_found: "822",
-        token_invalid: "823",
-        invalid_paypage_registration_id: "877",
-        expired_paypage_registration_id: "878",
-        generic_token_registration_error: "898",
-        generic_token_use_error: "899"
-      }
+        account_successfully_registered: '801',
+        account_already_registered: '802',
+        credit_card_number_invalid: '820',
+        merchant_not_authorized_for_tokens: '821',
+        token_not_found: '822',
+        token_invalid: '823',
+        invalid_paypage_registration_id: '877',
+        expired_paypage_registration_id: '878',
+        generic_token_registration_error: '898',
+        generic_token_use_error: '899'
+      }.freeze
 
       def success?
         !api_level_failure? && tokenization_successful?

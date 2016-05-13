@@ -3,7 +3,8 @@ module Vantiv
     class TiedTransactionResponse < Api::Response
       RESPONSE_CODES = {
         transaction_received: '001'
-      }
+      }.freeze
+
       TIED_TRANSACTION_RESPONSE_NAMES = {
         auth_reversal: 'authReversalResponse',
         capture: "captureResponse",

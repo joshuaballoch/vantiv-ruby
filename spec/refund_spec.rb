@@ -5,6 +5,10 @@ describe "processing standalone refunds" do
   let(:payment_account_id) { test_account.payment_account_id }
   let(:order_id) { "order-#{rand(10000)}" }
 
+  subject(:response) do
+    run_refund
+  end
+
   def run_refund
     Vantiv.refund(
       amount: 10000,
@@ -17,18 +21,17 @@ describe "processing standalone refunds" do
   end
 
   it "returns success when transaction is received" do
-    expect(run_refund.success?).to eq true
+    expect(response.success?).to eq true
   end
 
   it "returns a new transaction id" do
-    response = run_refund
     expect(response.transaction_id).not_to eq nil
     expect(response.transaction_id).not_to eq ""
   end
 
   it "returns a 001 transaction received response code" do
-    expect(run_refund.response_code).to eq '001'
-    expect(run_refund.message).to eq 'Transaction Received'
+    expect(response.response_code).to eq '001'
+    expect(response.message).to eq 'Transaction Received'
   end
 
   context "duplicate transaction checking" do

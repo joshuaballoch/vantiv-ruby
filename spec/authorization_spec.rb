@@ -124,4 +124,5 @@ describe "auth" do
       expect(response.api_level_failure?).to eq true
     end
   end
+
 end

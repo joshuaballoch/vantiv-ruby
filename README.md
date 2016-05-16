@@ -42,7 +42,7 @@ To certify your application, run the following script:
 $ LICENSE_ID=sub-your-license-id-in-here ACCEPTOR_ID=sub-your-acceptor-id-in-here PAYPAGE_ID=your-paypage-id vantiv-certify-app
 ```
 
-A certs.txt file will be generated in the directory that the script is run, and then opened. It contains a list of DevHub Certification test names and associated Request IDs, like follows:
+A certs.txt file will be generated in the directory that the script is run, and then opened. It contains a list of DevHub Certification Test IDs and associated Request IDs, like follows:
 
 ```
 L_AC_1, request-id-for-L_AC_1-here
@@ -50,6 +50,15 @@ L_AC_2, request-id-for-L_AC_2-here
 ```
 
 Navigate to your application's page in DevHub's developer portal (apideveloper.vantiv.com). Paste the contents of this file into the validation form input field, and then click "Validate".
+
+### Running a subset of the certifications
+
+If you want to just run a subset of the certifications you can set `FILTER_BY` to the name in the Test IDs that you want to which match against. For example, if you only want to run the Account Updater certification, which have Test IDs that are prefixed with `L_AU`, you would filter by `AU` like follows:
+
+```
+$ LICENSE_ID=bla ACCEPTOR_ID=bla PAYPAGE_ID=bla FILTER_BY=AU vantiv-certify-app
+```
+
 
 ## Usage
 

@@ -61,6 +61,33 @@ module Vantiv
       )
     end
 
+    def self.account_updater
+      fetch_account(
+        card_number: "4457000300000007",
+        expiry_month: "01",
+        expiry_year: "15",
+        cvv: "123"
+      )
+    end
+
+    def self.account_updater_account_closed
+      fetch_account(
+        card_number: "5112000101110009",
+        expiry_month: "11",
+        expiry_year: "99",
+        cvv: "123"
+      )
+    end
+
+    def self.account_updater_contact_cardholder
+      fetch_account(
+        card_number: "4457000301100004",
+        expiry_month: "11",
+        expiry_year: "99",
+        cvv: "123"
+      )
+    end
+
     def self.fetch_account(card_number:, expiry_month:, expiry_year:, cvv:)
       acct = new(card_number, expiry_month, expiry_year, cvv)
       acct.read_or_get_data

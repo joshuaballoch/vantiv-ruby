@@ -42,10 +42,58 @@ module Vantiv
         response_code == RESPONSE_CODES[:expired_card]
       end
 
-      private
+      def account_updater_response
+        AccountUpdaterResponse.new(litle_transaction_response["accountUpdater"]) if account_updater_present?
+      end
 
+      private
       def transaction_approved?
         response_code == RESPONSE_CODES[:approved]
+      end
+
+      def account_updater_present?
+        !!litle_transaction_response["accountUpdater"]
+      end
+    end
+
+    class AccountUpdaterResponse
+      attr_reader :account_updater_response
+
+      def initialize(account_updater)
+        @account_updater_response = account_updater
+      end
+
+      def payment_account_id
+        new_card_token_info["PaymentAccountID"]
+      end
+
+      def card_type
+        new_card_token_info["Type"]
+      end
+
+      def expiry_month
+        new_card_token_info["ExpirationMonth"]
+      end
+
+      def expiry_year
+        new_card_token_info["ExpirationYear"]
+      end
+
+      def extended_card_response_code
+        extended_card_response["code"]
+      end
+
+      def extended_card_response_message
+        extended_card_response["message"]
+      end
+
+      private
+      def new_card_token_info
+        account_updater_response.fetch("newCardTokenInfo", {})
+      end
+
+      def extended_card_response
+        account_updater_response.fetch("extendedCardResponse", {})
       end
     end
   end

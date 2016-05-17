@@ -1,0 +1,19 @@
+{
+  "endpoint": "AUTHORIZATION",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "100.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345",
+      "PartialApprovedFlag": "false"
+    },
+    "Card": {
+      "Type": "DI",
+      "CardNumber": "6500102087026221",
+      "ExpirationMonth": "01",
+      "ExpirationYear": "15",
+      "CVV": "349"
+    }
+  }
+}

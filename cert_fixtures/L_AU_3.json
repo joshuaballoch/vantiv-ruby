@@ -1,0 +1,19 @@
+{
+  "endpoint": "SALE",
+  "body": {
+    "Transaction": {
+      "ReferenceNumber": "1",
+      "TransactionAmount": "100.00",
+      "OrderSource": "ecommerce",
+      "CustomerID": "345",
+      "PartialApprovedFlag": "false"
+    },
+    "Card": {
+      "Type": "VI",
+      "CardNumber": "4457000300000007",
+      "ExpirationMonth": "01",
+      "ExpirationYear": "15",
+      "CVV": "349"
+    }
+  }
+}

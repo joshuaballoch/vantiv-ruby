@@ -5,7 +5,7 @@ require 'vantiv/certification/validation_test_runner'
 require 'optparse'
 
 options = {}
-OptionParser.new do |opts|
+parser = OptionParser.new do |opts|
   opts.banner = "Usage: vantiv-certify-app -a <acceptor_id> -l <license_id> -p <paypage_id> [--filter_by <test_name>]"
 
   opts.on("-a", "--acceptor_id ACCEPTOR_ID", "Vantiv Acceptor ID") do |acceptor_id|
@@ -23,11 +23,17 @@ OptionParser.new do |opts|
   opts.on("--filter_by [TEST_NAME]", "Filter which certifications to run") do |filter|
     options[:filter_by] = filter
   end
-end.parse!
+end
+
+parser.parse!
 
 required_arguments = %i[acceptor_id license_id paypage_id]
-required_arguments.each do |required_argument|
-  raise OptionParser::MissingArgument if options[required_argument].nil?
+missing_arguments = required_arguments.select{ |required_argument| options[required_argument].nil? }
+
+if missing_arguments.any?
+  puts "Missing options: #{missing_arguments.join(", ")}"
+  puts parser.banner
+  exit
 end
 
 Vantiv.configure do |config|

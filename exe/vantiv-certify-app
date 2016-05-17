@@ -2,22 +2,45 @@
 
 require 'vantiv'
 require 'vantiv/certification/validation_test_runner'
+require 'optparse'
 
-unless ENV['ACCEPTOR_ID'] && ENV['LICENSE_ID'] && ENV['PAYPAGE_ID']
-  raise "Vantiv License ID, Acceptor ID, Paypage ID and Application ID required"
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: vantiv-certify-app -a <acceptor_id> -l <license_id> -p <paypage_id> [--filter_by <test_name>]"
+
+  opts.on("-a", "--acceptor_id ACCEPTOR_ID", "Vantiv Acceptor ID") do |acceptor_id|
+    options[:acceptor_id] = acceptor_id
+  end
+
+  opts.on("-l", "--license_id LICENSE_ID", "Vantiv License ID") do |license_id|
+    options[:license_id] = license_id
+  end
+
+  opts.on("-p", "--paypage_id PAYPAGE_ID", "Vantiv Paypage ID") do |paypage_id|
+    options[:paypage_id] = paypage_id
+  end
+
+  opts.on("--filter_by [TEST_NAME]", "Filter which certifications to run") do |filter|
+    options[:filter_by] = filter
+  end
+end.parse!
+
+required_arguments = %i[acceptor_id license_id paypage_id]
+required_arguments.each do |required_argument|
+  raise OptionParser::MissingArgument if options[required_argument].nil?
 end
 
 Vantiv.configure do |config|
-  config.license_id = ENV["LICENSE_ID"]
-  config.acceptor_id = ENV["ACCEPTOR_ID"]
-  config.paypage_id = ENV["PAYPAGE_ID"]
+  config.license_id = options.fetch(:license_id)
+  config.acceptor_id = options.fetch(:acceptor_id)
+  config.paypage_id = options.fetch(:paypage_id)
   config.environment = Vantiv::Environment::CERTIFICATION
 
   config.default_report_group = '1'
 end
 
 Vantiv::Certification::ValidationTestRunner.run(
-  filter_by: ENV["FILTER_BY"],
+  filter_by: options[:filter_by],
   save_to: "certs.txt"
 )
 

@@ -39,7 +39,7 @@ Vantiv's DevHub requires merchants to certify their applications for usage with 
 To certify your application, run the following script:
 
 ```
-$ vantiv-certify-app -l sub-your-license-id-in-here -a sub-your-acceptor-id-in-here -p your-paypage-id 
+$ bundle exec vantiv-certify-app -l sub-your-license-id-in-here -a sub-your-acceptor-id-in-here -p your-paypage-id 
 ```
 
 A certs.txt file will be generated in the directory that the script is run, and then opened. It contains a list of DevHub Certification test names and associated Request IDs, like follows:
